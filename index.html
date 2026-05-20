@@ -1,0 +1,1549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FoodScope — QSR brand audits, in your pocket</title>
+<meta name="description" content="FoodScope runs a complete competitive brand audit on any QSR concept in under three minutes.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,800;0,9..144,900;1,9..144,300;1,9..144,400;1,9..144,600;1,9..144,800&family=Figtree:wght@300;400;500;600;700;800;900&family=Rubik+Mono+One&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--cream:#F7EDD5;--cream-deep:#F1E3BD;--cream-dark:#E8D4A0;--paper:#FBF5E5;--ketchup:#D8412A;--ketchup-deep:#A82E1B;--fry:#F5B730;--fry-deep:#E99A0B;--mustard:#E8A93D;--pickle:#7FAB6F;--pickle-deep:#5A8A4B;--soda:#5EB3E4;--soda-deep:#2B8BC7;--berry:#C73F84;--berry-deep:#A02968;--grape:#7B5FBF;--grape-deep:#5A3FA0;--cola:#5C3320;--ink:#1F1A14;--ink-soft:#3A332A;--ink-ghost:#736759;--frame-border:2.5px solid var(--ink);--frame-radius:28px;}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--cream);color:var(--ink);font-family:'Figtree',system-ui,sans-serif;font-size:15px;line-height:1.6;overflow-x:hidden;}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}
+
+.topnav{position:fixed;top:0;left:0;right:0;z-index:500;background:rgba(247,237,213,0.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:2px solid var(--ink);padding:0 36px;height:56px;display:flex;align-items:center;justify-content:space-between;}
+.topnav-brand{font-family:'Rubik Mono One',sans-serif;font-size:15px;letter-spacing:-0.02em;color:var(--ink);text-transform:uppercase;text-decoration:none;display:flex;align-items:center;gap:8px;}
+.topnav-brand span{color:var(--ketchup);}
+.topnav-brand .nav-fries{display:inline-block;width:14px;height:14px;}
+.topnav-links{display:flex;align-items:center;gap:4px;}
+.tn-link{font-family:'Figtree',sans-serif;font-weight:600;font-size:12px;letter-spacing:0.06em;text-transform:uppercase;color:var(--ink-soft);text-decoration:none;padding:7px 14px;border-radius:100px;transition:all 0.2s;border:2px solid transparent;cursor:pointer;background:transparent;}
+.tn-link:hover{color:var(--ink);background:rgba(31,26,20,0.05);}
+.tn-link.active{background:var(--ink);color:var(--cream);border-color:var(--ink);}
+.tn-cta{background:var(--ketchup);color:var(--cream);border:2px solid var(--ink);border-radius:100px;padding:7px 16px;font-family:'Figtree',sans-serif;font-weight:700;font-size:12px;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;box-shadow:2px 2px 0 var(--ink);transition:all 0.15s;}
+.tn-cta:hover{transform:translate(-1px,-1px);box-shadow:3px 3px 0 var(--ink);}
+
+.ambient{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
+.blob{position:absolute;border-radius:50%;opacity:0.4;filter:blur(80px);}
+.b1{width:520px;height:520px;background:var(--fry);top:-200px;left:-180px;animation:drift 28s ease-in-out infinite;}
+.b2{width:420px;height:420px;background:var(--ketchup);top:30%;right:-160px;animation:drift 32s ease-in-out infinite reverse;}
+.b3{width:380px;height:380px;background:var(--mustard);bottom:10%;left:30%;animation:drift 36s ease-in-out infinite;}
+.b4{width:340px;height:340px;background:var(--pickle);top:120%;right:10%;animation:drift 30s ease-in-out infinite;}
+.b5{width:460px;height:460px;background:var(--berry);top:200%;left:-100px;animation:drift 34s ease-in-out infinite reverse;}
+@keyframes drift{0%,100%{transform:translate(0,0) scale(1);}33%{transform:translate(50px,-40px) scale(1.1);}66%{transform:translate(-30px,30px) scale(0.95);}}
+
+.btn{display:inline-flex;align-items:center;gap:8px;font-family:'Figtree',sans-serif;font-weight:700;font-size:13px;letter-spacing:0.04em;text-transform:uppercase;border:2.5px solid var(--ink);border-radius:100px;padding:14px 28px;cursor:pointer;color:var(--ink);transition:transform 0.15s ease,box-shadow 0.15s ease;text-decoration:none;box-shadow:4px 4px 0 var(--ink);background:var(--cream);}
+.btn:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink);}
+.btn:active{transform:translate(2px,2px);box-shadow:0 0 0 var(--ink);}
+.btn-fry{background:var(--fry);}
+.btn-ketchup{background:var(--ketchup);color:var(--cream);}
+.btn-pickle{background:var(--pickle);color:var(--cream);}
+.btn-soda{background:var(--soda);}
+.btn-berry{background:var(--berry);color:var(--cream);}
+.btn-ink{background:var(--ink);color:var(--cream);}
+.btn-cream{background:var(--cream);}
+.btn-ghost{background:transparent;}
+.btn-lg{padding:18px 36px;font-size:14px;}
+.btn-sm{padding:10px 20px;font-size:11px;box-shadow:3px 3px 0 var(--ink);}
+.btn-sm:hover{box-shadow:5px 5px 0 var(--ink);}
+
+.screen{display:none;position:relative;z-index:5;}
+.screen.active{display:block;}
+
+.section{padding:100px 44px;position:relative;max-width:1280px;margin:0 auto;}
+.hero-section{padding-top:140px;padding-bottom:80px;}
+.hero-grid{display:grid;grid-template-columns:1.1fr 0.9fr;gap:40px;align-items:center;}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:10px;background:var(--ink);color:var(--cream);border-radius:100px;padding:7px 16px;font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:24px;}
+.hero-eyebrow::before{content:'';width:8px;height:8px;border-radius:50%;background:var(--fry);animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.6;transform:scale(1.3);}}
+.hero-title{font-family:'Fraunces',serif;font-weight:300;font-style:italic;font-size:82px;line-height:0.92;letter-spacing:-0.03em;margin-bottom:26px;}
+.hero-title strong{font-style:normal;font-weight:900;}
+.hero-title .u{background:var(--fry);padding:0 8px;border-radius:8px;display:inline-block;transform:rotate(-1deg);font-style:normal;font-weight:900;}
+.hero-body{font-size:17px;line-height:1.7;color:var(--ink-soft);max-width:500px;margin-bottom:32px;}
+.hero-cta{display:flex;gap:14px;align-items:center;flex-wrap:wrap;}
+.hero-trust{margin-top:32px;display:flex;align-items:center;gap:16px;}
+.trust-avs{display:flex;}
+.trust-av{width:36px;height:36px;border-radius:50%;border:2.5px solid var(--ink);background:var(--fry);margin-left:-8px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:var(--ink);}
+.trust-av:nth-child(1){background:var(--berry);color:var(--cream);margin-left:0;}
+.trust-av:nth-child(2){background:var(--soda);}
+.trust-av:nth-child(3){background:var(--pickle);color:var(--cream);}
+.trust-av:nth-child(4){background:var(--ketchup);color:var(--cream);}
+.trust-text{font-size:12px;color:var(--ink-soft);font-weight:500;line-height:1.4;}
+.trust-text b{color:var(--ink);font-weight:700;}
+
+.hero-visual{position:relative;height:520px;}
+.hv-card{position:absolute;border:var(--frame-border);border-radius:24px;padding:20px;box-shadow:6px 6px 0 var(--ink);transition:transform 0.4s ease;}
+.hv-1{top:0;left:0;width:260px;background:var(--ketchup);color:var(--cream);transform:rotate(-4deg);animation:bob 6s ease-in-out infinite;--r:-4deg;}
+.hv-2{top:40px;right:20px;width:240px;background:var(--fry);transform:rotate(5deg);animation:bob 7s ease-in-out infinite reverse;--r:5deg;}
+.hv-3{top:220px;left:30px;width:280px;background:var(--soda);transform:rotate(2deg);animation:bob 8s ease-in-out infinite;--r:2deg;}
+.hv-4{top:280px;right:0;width:260px;background:var(--pickle);color:var(--cream);transform:rotate(-3deg);animation:bob 5.5s ease-in-out infinite reverse;--r:-3deg;}
+@keyframes bob{0%,100%{transform:translateY(0) rotate(var(--r,0));}50%{transform:translateY(-12px) rotate(var(--r,0));}}
+.hvc-label{font-size:10px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:8px;opacity:0.9;}
+.hvc-head{font-family:'Fraunces',serif;font-style:italic;font-weight:400;font-size:22px;line-height:1.1;letter-spacing:-0.01em;}
+.hvc-head strong{font-style:normal;font-weight:800;}
+.hvc-num{font-family:'Fraunces',serif;font-weight:800;font-size:52px;line-height:1;letter-spacing:-0.03em;margin-top:8px;}
+.hvc-bar{height:8px;background:rgba(0,0,0,0.15);border:1.5px solid var(--ink);border-radius:100px;margin-top:10px;overflow:hidden;}
+.hvc-bar-fill{height:100%;background:var(--ink);border-right:1.5px solid var(--ink);}
+
+.float-deco{position:absolute;pointer-events:none;z-index:1;opacity:0.95;}
+.fd-burger{top:110px;right:6%;animation:spin 22s linear infinite;}
+.fd-fry{top:38%;left:3%;animation:wobble 5s ease-in-out infinite;}
+.fd-soda{bottom:10%;right:2%;animation:bob-slow 6s ease-in-out infinite;}
+@keyframes spin{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
+@keyframes wobble{0%,100%{transform:translateX(0) rotate(0);}50%{transform:translateX(10px) rotate(8deg);}}
+@keyframes bob-slow{0%,100%{transform:translateY(0) rotate(-4deg);}50%{transform:translateY(-10px) rotate(4deg);}}
+
+.how-section{background:var(--ink);color:var(--cream);padding:100px 44px;border-top:2.5px solid var(--ink);border-bottom:2.5px solid var(--ink);position:relative;z-index:5;overflow:hidden;}
+.how-wrap{max-width:1280px;margin:0 auto;position:relative;z-index:2;}
+.sec-eyebrow{display:inline-flex;align-items:center;gap:8px;background:var(--cream);color:var(--ink);border-radius:100px;padding:6px 14px;font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:20px;border:2px solid var(--ink);box-shadow:2px 2px 0 var(--fry);}
+.sec-head{font-family:'Fraunces',serif;font-weight:300;font-style:italic;font-size:56px;line-height:0.98;letter-spacing:-0.02em;margin-bottom:48px;max-width:800px;}
+.sec-head strong{font-style:normal;font-weight:900;}
+.sec-head .u{background:var(--ketchup);padding:0 10px;border-radius:10px;display:inline-block;transform:rotate(-1deg);font-style:normal;font-weight:900;color:var(--cream);}
+.how-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
+.how-card{background:var(--cream);color:var(--ink);border:var(--frame-border);border-radius:var(--frame-radius);padding:28px;box-shadow:6px 6px 0 var(--fry);transition:transform 0.25s,box-shadow 0.25s;position:relative;overflow:hidden;}
+.how-card:hover{transform:translate(-3px,-3px);box-shadow:9px 9px 0 var(--fry);}
+.how-card:nth-child(2){box-shadow:6px 6px 0 var(--ketchup);}
+.how-card:nth-child(2):hover{box-shadow:9px 9px 0 var(--ketchup);}
+.how-card:nth-child(3){box-shadow:6px 6px 0 var(--soda);}
+.how-card:nth-child(3):hover{box-shadow:9px 9px 0 var(--soda);}
+.how-card:nth-child(4){box-shadow:6px 6px 0 var(--pickle);}
+.how-card:nth-child(4):hover{box-shadow:9px 9px 0 var(--pickle);}
+.how-num{font-family:'Rubik Mono One',sans-serif;font-size:44px;color:var(--ink);opacity:0.15;letter-spacing:-0.04em;line-height:1;margin-bottom:8px;}
+.how-title{font-family:'Fraunces',serif;font-weight:800;font-size:22px;letter-spacing:-0.01em;margin-bottom:10px;}
+.how-body{font-size:13.5px;line-height:1.6;color:var(--ink-soft);}
+
+.feats-section{padding:100px 44px;}
+.feats-grid{display:grid;grid-template-columns:1.2fr 1fr 1fr;grid-template-rows:auto auto;gap:22px;margin-top:44px;}
+.feat{border:var(--frame-border);border-radius:var(--frame-radius);padding:32px;box-shadow:6px 6px 0 var(--ink);transition:transform 0.25s,box-shadow 0.25s;position:relative;overflow:hidden;min-height:220px;display:flex;flex-direction:column;justify-content:space-between;}
+.feat:hover{transform:translate(-3px,-3px);box-shadow:9px 9px 0 var(--ink);}
+.feat-1{background:var(--ketchup);color:var(--cream);grid-column:1;grid-row:1/span 2;min-height:460px;}
+.feat-2{background:var(--fry);grid-column:2;grid-row:1;}
+.feat-3{background:var(--soda);grid-column:3;grid-row:1;}
+.feat-4{background:var(--berry);color:var(--cream);grid-column:2;grid-row:2;}
+.feat-5{background:var(--pickle);color:var(--cream);grid-column:3;grid-row:2;}
+.feat-label{font-size:10px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:14px;opacity:0.9;}
+.feat-head{font-family:'Fraunces',serif;font-weight:400;font-style:italic;font-size:26px;line-height:1.1;letter-spacing:-0.01em;margin-bottom:14px;}
+.feat-1 .feat-head{font-size:36px;}
+.feat-head strong{font-style:normal;font-weight:800;}
+.feat-body{font-size:14px;line-height:1.65;opacity:0.94;}
+.feat-1 .feat-body{font-size:15.5px;}
+
+.testi-section{padding:40px 44px 100px;}
+.testi-wrap{max-width:920px;margin:0 auto;background:var(--grape);color:var(--cream);border:var(--frame-border);border-radius:var(--frame-radius);padding:48px 56px;box-shadow:8px 8px 0 var(--ink);position:relative;overflow:hidden;}
+.testi-wrap::before{content:'"';position:absolute;top:-30px;left:20px;font-family:'Fraunces',serif;font-size:220px;color:var(--fry);opacity:0.3;line-height:1;font-weight:900;}
+.testi-label{font-size:11px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;margin-bottom:16px;opacity:0.8;position:relative;z-index:2;}
+.testi-quote{font-family:'Fraunces',serif;font-weight:300;font-style:italic;font-size:28px;line-height:1.35;letter-spacing:-0.01em;margin-bottom:24px;position:relative;z-index:2;}
+.testi-attr{display:flex;align-items:center;gap:14px;position:relative;z-index:2;}
+.testi-av{width:48px;height:48px;border-radius:50%;border:2.5px solid var(--cream);background:var(--fry);display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--ink);font-size:15px;}
+.testi-who{font-weight:700;font-size:14px;}
+.testi-role{font-size:12px;opacity:0.8;}
+
+.pricing-section{padding:40px 44px 140px;}
+.tiers-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:44px;}
+.tier{background:var(--cream);border:var(--frame-border);border-radius:var(--frame-radius);padding:36px 32px 32px;box-shadow:6px 6px 0 var(--ink);position:relative;transition:transform 0.3s,box-shadow 0.3s;display:flex;flex-direction:column;}
+.tier:hover{transform:translate(-3px,-3px);box-shadow:9px 9px 0 var(--ink);}
+.tier.featured{background:var(--fry);transform:scale(1.03);}
+.tier.featured:hover{transform:scale(1.03) translate(-3px,-3px);}
+.tier-ribbon{position:absolute;top:-16px;right:24px;background:var(--ink);color:var(--cream);border:2.5px solid var(--ink);border-radius:100px;padding:6px 16px;font-size:10px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;box-shadow:3px 3px 0 var(--ketchup);}
+.tier-name{font-family:'Fraunces',serif;font-weight:800;font-size:26px;letter-spacing:-0.01em;margin-bottom:6px;}
+.tier-audience{font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-ghost);margin-bottom:20px;}
+.tier.featured .tier-audience{color:var(--ink-soft);}
+.tier-price{display:flex;align-items:baseline;gap:6px;margin-bottom:14px;padding-bottom:20px;border-bottom:1.5px dashed rgba(31,26,20,0.25);}
+.tier-price-amt{font-family:'Fraunces',serif;font-weight:900;font-size:52px;line-height:1;letter-spacing:-0.03em;}
+.tier-price-per{font-size:13px;font-weight:600;color:var(--ink-ghost);}
+.tier-desc{font-size:13.5px;line-height:1.55;color:var(--ink-soft);margin-bottom:22px;}
+.tier-feats{list-style:none;margin-bottom:28px;flex:1;}
+.tier-feats li{font-size:13px;line-height:1.5;padding:8px 0 8px 24px;position:relative;color:var(--ink-soft);}
+.tier-feats li::before{content:'';position:absolute;left:0;top:13px;width:14px;height:14px;border-radius:50%;background:var(--pickle);border:1.5px solid var(--ink);}
+.tier-feats li::after{content:'\2713';position:absolute;left:3px;top:6px;font-size:10px;font-weight:800;color:var(--cream);}
+.tier.featured .tier-feats li::before{background:var(--ketchup);}
+.tier-feats li.locked::before{background:transparent;}
+.tier-feats li.locked::after{content:'\25CB';color:var(--ink-ghost);top:7px;left:1px;font-size:13px;}
+.tier-feats li.locked{color:var(--ink-ghost);}
+.tier-cta{width:100%;}
+
+.final-cta{padding:40px 44px 120px;}
+.final-wrap{max-width:1100px;margin:0 auto;background:var(--ketchup);color:var(--cream);border:var(--frame-border);border-radius:var(--frame-radius);padding:80px 60px;text-align:center;box-shadow:10px 10px 0 var(--ink);position:relative;overflow:hidden;}
+.final-wrap::before{content:'';position:absolute;top:-80px;left:-80px;width:260px;height:260px;background:var(--fry);border-radius:50%;border:2.5px solid var(--ink);}
+.final-wrap::after{content:'';position:absolute;bottom:-100px;right:-80px;width:280px;height:280px;background:var(--mustard);border-radius:50%;border:2.5px solid var(--ink);}
+.final-head{font-family:'Fraunces',serif;font-weight:300;font-style:italic;font-size:64px;line-height:0.98;letter-spacing:-0.02em;margin-bottom:24px;position:relative;z-index:2;}
+.final-head strong{font-style:normal;font-weight:900;}
+.final-body{font-size:17px;line-height:1.6;margin-bottom:36px;opacity:0.95;position:relative;z-index:2;max-width:580px;margin-left:auto;margin-right:auto;}
+.final-cta-btn{position:relative;z-index:2;}
+.footer{padding:40px 44px;text-align:center;font-size:12px;color:var(--ink-ghost);border-top:2px solid var(--ink);background:var(--cream-deep);position:relative;z-index:5;}
+
+#screen-form{min-height:100vh;padding-top:56px;position:relative;}
+.form-bg{position:fixed;top:56px;left:0;right:0;bottom:0;transition:background 0.8s ease;z-index:1;}
+.form-bg.step-0{background:var(--fry);}
+.form-bg.step-1{background:var(--ketchup);}
+.form-bg.step-2{background:var(--soda);}
+.form-bg.step-3{background:var(--pickle);}
+.form-bg.step-4{background:var(--berry);}
+.form-bg.step-5{background:var(--grape);}
+.form-progress{position:fixed;top:76px;left:50%;transform:translateX(-50%);z-index:50;display:flex;gap:10px;padding:10px 18px;background:rgba(247,237,213,0.95);border:2px solid var(--ink);border-radius:100px;box-shadow:3px 3px 0 var(--ink);}
+.fp-dot{width:28px;height:10px;border-radius:100px;background:rgba(31,26,20,0.2);border:1.5px solid var(--ink);transition:all 0.3s;cursor:pointer;}
+.fp-dot.done{background:var(--ink);}
+.fp-dot.current{background:var(--cream);width:60px;}
+.form-stage{position:relative;z-index:5;min-height:calc(100vh - 56px);display:flex;align-items:center;justify-content:center;padding:90px 40px 60px;}
+.form-card{background:var(--cream);border:var(--frame-border);border-radius:var(--frame-radius);padding:48px 56px;max-width:780px;width:100%;box-shadow:10px 10px 0 var(--ink);position:relative;}
+.form-step-label{display:inline-flex;align-items:center;gap:8px;background:var(--ink);color:var(--cream);border-radius:100px;padding:6px 14px;font-size:10px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:18px;}
+.form-step-label .combo-num{font-family:'Rubik Mono One',sans-serif;font-size:11px;color:var(--fry);letter-spacing:0;}
+.form-question{font-family:'Fraunces',serif;font-weight:400;font-style:italic;font-size:42px;line-height:1.06;letter-spacing:-0.02em;margin-bottom:12px;color:var(--ink);}
+.form-question strong{font-style:normal;font-weight:800;}
+.form-hint{font-size:14.5px;color:var(--ink-soft);margin-bottom:30px;line-height:1.6;}
+.form-fields{display:grid;gap:16px;}
+.form-fields.two{grid-template-columns:1fr 1fr;}
+.ff-group{display:flex;flex-direction:column;gap:8px;}
+.ff-label{font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-ghost);}
+.ff-input,.ff-select,.ff-textarea{background:var(--cream-deep);border:2px solid var(--ink);border-radius:14px;padding:13px 16px;font-family:'Figtree',sans-serif;font-size:15px;color:var(--ink);outline:none;transition:all 0.2s;}
+.ff-input:focus,.ff-select:focus,.ff-textarea:focus{background:var(--cream);box-shadow:3px 3px 0 var(--ink);transform:translate(-1px,-1px);}
+.ff-input::placeholder,.ff-textarea::placeholder{color:var(--ink-ghost);}
+.ff-textarea{resize:vertical;min-height:100px;line-height:1.6;}
+.ff-select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%231F1A14' stroke-width='2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 16px center;padding-right:40px;cursor:pointer;}
+.form-nav-row{display:flex;justify-content:space-between;align-items:center;margin-top:30px;gap:16px;}
+.form-keys{font-size:11px;color:var(--ink-ghost);font-weight:600;display:flex;align-items:center;gap:10px;}
+.kbd{display:inline-block;background:var(--cream);border:1.5px solid var(--ink);border-radius:6px;padding:2px 8px;font-family:'JetBrains Mono',monospace;font-weight:700;font-size:10px;box-shadow:1px 1px 0 var(--ink);}
+
+.cuisine-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;}
+.cuisine-card{background:var(--cream-deep);border:2px solid var(--ink);border-radius:14px;padding:16px 8px;cursor:pointer;text-align:center;transition:all 0.15s;display:flex;flex-direction:column;align-items:center;gap:8px;}
+.cuisine-card:hover{transform:translate(-2px,-2px);box-shadow:3px 3px 0 var(--ink);background:var(--cream);}
+.cuisine-card.selected{background:var(--ketchup);color:var(--cream);box-shadow:3px 3px 0 var(--ink);transform:translate(-1px,-1px);}
+.cuisine-icon{width:36px;height:36px;}
+.cuisine-name{font-size:11px;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;line-height:1.2;}
+
+.option-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+.option-grid.three{grid-template-columns:repeat(3,1fr);}
+.option-grid.five{grid-template-columns:repeat(5,1fr);}
+.opt-card{background:var(--cream-deep);border:2px solid var(--ink);border-radius:14px;padding:18px 12px;cursor:pointer;text-align:center;transition:all 0.15s;display:flex;flex-direction:column;align-items:center;gap:8px;}
+.opt-card:hover{transform:translate(-2px,-2px);box-shadow:3px 3px 0 var(--ink);background:var(--cream);}
+.opt-card.selected{background:var(--soda);color:var(--ink);box-shadow:3px 3px 0 var(--ink);transform:translate(-1px,-1px);}
+.opt-card.selected.kx{background:var(--ketchup);color:var(--cream);}
+.opt-card.selected.fr{background:var(--fry);color:var(--ink);}
+.opt-card.selected.pk{background:var(--pickle);color:var(--cream);}
+.opt-card.selected.br{background:var(--berry);color:var(--cream);}
+.opt-icon{width:32px;height:32px;}
+.opt-name{font-size:11.5px;font-weight:700;letter-spacing:0.02em;line-height:1.25;}
+
+.chip-grid{display:flex;flex-wrap:wrap;gap:8px;}
+.chip{background:var(--cream-deep);border:2px solid var(--ink);border-radius:100px;padding:9px 16px;font-size:13px;font-weight:600;cursor:pointer;transition:all 0.15s;}
+.chip:hover{transform:translate(-1px,-1px);box-shadow:2px 2px 0 var(--ink);background:var(--cream);}
+.chip.selected{background:var(--berry);color:var(--cream);box-shadow:2px 2px 0 var(--ink);}
+
+.slider-wrap{background:var(--cream-deep);border:2px solid var(--ink);border-radius:18px;padding:22px 24px;}
+.slider-headline{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px;gap:14px;}
+.slider-headline-left{font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-ghost);}
+.slider-headline-right{font-family:'Fraunces',serif;font-weight:800;font-size:22px;letter-spacing:-0.01em;color:var(--ink);}
+.slider-headline-right .sec{font-size:14px;color:var(--ink-ghost);font-weight:600;font-family:'Figtree';}
+.slider-track{position:relative;height:10px;background:var(--cream);border:1.5px solid var(--ink);border-radius:100px;margin:6px 0 14px;}
+.slider-fill{position:absolute;left:0;top:0;bottom:0;background:var(--ketchup);border-right:1.5px solid var(--ink);border-radius:100px 0 0 100px;transition:width 0.15s;}
+.slider-input{-webkit-appearance:none;appearance:none;width:100%;height:10px;background:transparent;outline:none;position:absolute;top:0;left:0;z-index:3;cursor:pointer;margin:0;}
+.slider-input::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:24px;height:24px;border-radius:50%;background:var(--fry);border:2.5px solid var(--ink);cursor:pointer;box-shadow:2px 2px 0 var(--ink);transition:transform 0.1s;margin-top:-7px;}
+.slider-input::-webkit-slider-thumb:hover{transform:scale(1.1);}
+.slider-input::-moz-range-thumb{width:24px;height:24px;border-radius:50%;background:var(--fry);border:2.5px solid var(--ink);cursor:pointer;}
+.slider-stops{display:flex;justify-content:space-between;font-size:10px;color:var(--ink-ghost);font-weight:600;letter-spacing:0.04em;}
+.slider-stop{flex:1;text-align:center;}
+.slider-stop:first-child{text-align:left;}
+.slider-stop:last-child{text-align:right;}
+
+.slider-dual-fill .slider-fill{background:var(--ketchup);}
+.slider-dual-fill .slider-fill-right{position:absolute;right:0;top:0;bottom:0;background:var(--soda);border-left:1.5px solid var(--ink);border-radius:0 100px 100px 0;}
+.dual-labels{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;}
+.dual-label{display:flex;flex-direction:column;gap:2px;}
+.dual-label-num{font-family:'Fraunces',serif;font-weight:800;font-size:30px;letter-spacing:-0.02em;line-height:1;}
+.dual-label-name{font-size:10px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-ghost);}
+.dual-label.right{text-align:right;}
+
+.comp-block{background:var(--cream-deep);border:2.5px solid var(--ink);border-radius:20px;padding:20px 22px;margin-bottom:12px;}
+.comp-block-label{font-size:10px;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink);margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+.comp-block-label::before{content:'';width:10px;height:10px;border-radius:50%;background:var(--ketchup);border:1.5px solid var(--ink);}
+.comp-block:nth-of-type(2) .comp-block-label::before{background:var(--soda);}
+.comp-block:nth-of-type(3) .comp-block-label::before{background:var(--pickle);}
+.comp-block .form-fields{gap:10px;}
+
+#screen-loading{min-height:100vh;padding-top:56px;display:none;flex-direction:column;align-items:center;justify-content:center;position:relative;z-index:5;}
+#screen-loading.active{display:flex;}
+.load-card{background:var(--cream);border:var(--frame-border);border-radius:var(--frame-radius);padding:48px 56px;max-width:560px;width:100%;box-shadow:10px 10px 0 var(--ink);text-align:center;position:relative;}
+.load-order{display:inline-block;background:var(--ink);color:var(--fry);font-family:'JetBrains Mono',monospace;font-weight:700;font-size:13px;letter-spacing:0.12em;padding:6px 14px;border-radius:100px;margin-bottom:18px;}
+.load-shapes{display:inline-flex;gap:10px;margin-bottom:20px;}
+.load-shape{width:36px;height:36px;border:2.5px solid var(--ink);animation:loadBounce 1.4s ease-in-out infinite;}
+.load-shape:nth-child(1){background:var(--fry);border-radius:50%;animation-delay:0s;}
+.load-shape:nth-child(2){background:var(--ketchup);border-radius:6px;animation-delay:0.15s;}
+.load-shape:nth-child(3){background:var(--pickle);border-radius:50% 50% 50% 0;animation-delay:0.3s;}
+.load-shape:nth-child(4){background:var(--soda);border-radius:50%;animation-delay:0.45s;}
+@keyframes loadBounce{0%,100%{transform:translateY(0);}50%{transform:translateY(-14px);}}
+.load-title{font-family:'Fraunces',serif;font-weight:400;font-style:italic;font-size:34px;line-height:1.1;letter-spacing:-0.02em;margin-bottom:8px;}
+.load-title strong{font-style:normal;font-weight:800;}
+.load-sub{font-size:14px;color:var(--ink-soft);margin-bottom:28px;}
+.load-steps{text-align:left;}
+.load-step{display:flex;align-items:center;gap:12px;padding:8px 0;font-size:13px;color:var(--ink-ghost);opacity:0.4;transition:all 0.3s;}
+.load-step.active{opacity:1;color:var(--ink);font-weight:600;}
+.load-step.done{opacity:1;color:var(--pickle-deep);}
+.load-step-ic{width:20px;height:20px;border-radius:50%;border:1.5px solid var(--ink);background:var(--cream-deep);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0;}
+.load-step.active .load-step-ic{background:var(--fry);animation:pulse 1.5s infinite;}
+.load-step.done .load-step-ic{background:var(--pickle);color:var(--cream);}
+.load-step.done .load-step-ic::after{content:'\2713';}
+
+#screen-results{padding-top:56px;}
+.results-body{max-width:1280px;margin:0 auto;padding:44px 44px 120px;position:relative;z-index:5;}
+.hero-r{display:grid;grid-template-columns:1.05fr 0.95fr;gap:28px;margin-bottom:40px;align-items:start;}
+
+.receipt{background:var(--paper);border:2.5px solid var(--ink);position:relative;padding:40px 44px 56px;font-family:'JetBrains Mono',monospace;color:var(--ink);box-shadow:10px 10px 0 var(--ink);transform:rotate(-0.4deg);}
+.receipt::before,.receipt::after{content:'';position:absolute;left:-2.5px;right:-2.5px;height:14px;}
+.receipt::before{top:-14px;background-image:linear-gradient(225deg,var(--cream) 7px,transparent 7px),linear-gradient(135deg,var(--cream) 7px,transparent 7px);background-position:0 0;background-size:14px 14px;}
+.receipt::after{bottom:-14px;background-image:linear-gradient(45deg,var(--cream) 7px,transparent 7px),linear-gradient(-45deg,var(--cream) 7px,transparent 7px);background-position:0 0;background-size:14px 14px;}
+.receipt-paper-noise{position:absolute;inset:0;opacity:0.06;pointer-events:none;background-image:radial-gradient(circle at 20% 30%, var(--ink) 1px, transparent 1px),radial-gradient(circle at 60% 70%, var(--ink) 1px, transparent 1px),radial-gradient(circle at 80% 20%, var(--ink) 1px, transparent 1px);background-size:40px 40px,30px 30px,50px 50px;}
+.receipt-header{text-align:center;margin-bottom:18px;position:relative;z-index:2;}
+.receipt-brand-mark{font-family:'Rubik Mono One',sans-serif;font-size:18px;letter-spacing:0.04em;margin-bottom:4px;}
+.receipt-brand-mark span{color:var(--ketchup);}
+.receipt-tagline{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:0.18em;color:var(--ink-ghost);}
+.receipt-divider{border:none;border-top:1.5px dashed var(--ink);margin:18px 0;position:relative;z-index:2;}
+.receipt-meta-row{display:flex;justify-content:space-between;font-size:10.5px;letter-spacing:0.06em;margin-bottom:4px;position:relative;z-index:2;}
+.receipt-section-head{font-size:10px;letter-spacing:0.18em;font-weight:700;margin:14px 0 8px;padding:3px 0;border-top:1.5px solid var(--ink);border-bottom:1.5px solid var(--ink);text-align:center;position:relative;z-index:2;}
+.receipt-item{display:flex;justify-content:space-between;align-items:flex-start;font-size:11.5px;line-height:1.5;padding:6px 0;position:relative;z-index:2;gap:14px;}
+.receipt-item-name{flex:1;letter-spacing:0.04em;}
+.receipt-item-val{font-weight:700;text-align:right;white-space:nowrap;}
+.receipt-brand-line{font-family:'Fraunces',serif;font-style:italic;font-weight:600;font-size:24px;line-height:1.1;text-align:center;margin:6px 0 4px;letter-spacing:-0.01em;position:relative;z-index:2;}
+.receipt-verdict-line{text-align:center;font-size:10.5px;letter-spacing:0.16em;font-weight:700;background:var(--ink);color:var(--fry);padding:8px;margin:10px -8px;position:relative;z-index:2;}
+.receipt-score{display:flex;justify-content:space-between;align-items:center;font-size:11px;font-weight:700;letter-spacing:0.06em;margin:8px 0;position:relative;z-index:2;}
+.receipt-score-bar{display:inline-block;letter-spacing:0;line-height:1;font-size:13px;}
+.receipt-total{display:flex;justify-content:space-between;font-size:14px;font-weight:700;letter-spacing:0.08em;margin-top:14px;padding-top:10px;border-top:2px solid var(--ink);position:relative;z-index:2;}
+.receipt-footer{text-align:center;font-size:9px;letter-spacing:0.18em;color:var(--ink-ghost);margin-top:18px;position:relative;z-index:2;line-height:1.7;}
+.receipt-barcode{display:flex;justify-content:center;gap:1.5px;margin-top:14px;position:relative;z-index:2;align-items:flex-end;height:36px;}
+.receipt-barcode .bar{display:inline-block;background:var(--ink);}
+.receipt-thanks{text-align:center;margin-top:14px;font-family:'Fraunces',serif;font-style:italic;font-size:13px;color:var(--ink-soft);position:relative;z-index:2;}
+
+.hero-side-r{background:var(--fry);border:var(--frame-border);border-radius:var(--frame-radius);padding:36px 32px;box-shadow:8px 8px 0 var(--ink);position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between;min-height:100%;}
+.hero-side-r::before{content:'';position:absolute;top:-60px;right:-60px;width:200px;height:200px;background:var(--berry);border-radius:50%;border:2.5px solid var(--ink);}
+.verdict-top-r{position:relative;z-index:2;}
+.verdict-label-r{font-size:10px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;margin-bottom:10px;}
+.verdict-signal-r{display:inline-flex;align-items:center;gap:8px;background:var(--ink);color:var(--cream);border-radius:100px;padding:8px 16px;font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:16px;}
+.verdict-signal-r .dot{width:8px;height:8px;border-radius:50%;background:var(--fry);box-shadow:0 0 0 2px var(--cream);}
+.verdict-headline-r{font-family:'Fraunces',serif;font-weight:600;font-size:25px;line-height:1.15;letter-spacing:-0.02em;position:relative;z-index:2;}
+.verdict-headline-r em{font-style:italic;font-weight:400;}
+.verdict-actions-r{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px;position:relative;z-index:2;}
+
+.sec-marker{display:flex;align-items:baseline;gap:18px;margin:56px 0 24px;}
+.sec-num-r{font-family:'Rubik Mono One',sans-serif;font-size:46px;color:var(--ink);opacity:0.18;letter-spacing:-0.04em;}
+.sec-title-r{font-family:'Fraunces',serif;font-style:italic;font-weight:400;font-size:38px;letter-spacing:-0.02em;}
+.sec-title-r strong{font-style:normal;font-weight:800;}
+.sec-arrow{margin-left:auto;font-size:26px;}
+
+.comp-intro-r{background:var(--cream-deep);border:var(--frame-border);border-radius:var(--frame-radius);padding:36px 44px;margin-bottom:28px;box-shadow:6px 6px 0 var(--ink);font-size:16px;line-height:1.8;color:var(--ink-soft);}
+.comp-intro-r p{margin-bottom:14px;}
+.comp-intro-r p:last-child{margin-bottom:0;}
+.comp-intro-r strong{color:var(--ink);background:var(--fry);padding:1px 6px;border-radius:4px;}
+
+.diff-card-r{background:var(--berry);border:var(--frame-border);border-radius:var(--frame-radius);padding:44px 52px;margin-bottom:28px;color:var(--cream);box-shadow:8px 8px 0 var(--ink);display:grid;grid-template-columns:auto 1fr;gap:44px;align-items:center;position:relative;overflow:hidden;}
+.diff-card-r::after{content:'';position:absolute;bottom:-80px;left:-80px;width:220px;height:220px;background:var(--grape);border-radius:50%;border:2.5px solid var(--ink);opacity:0.9;}
+.diff-score-r{position:relative;z-index:2;text-align:center;}
+.diff-score-num-r{font-family:'Fraunces',serif;font-weight:800;font-size:140px;line-height:0.8;letter-spacing:-0.05em;display:block;}
+.diff-score-label-r{font-size:11px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;opacity:0.85;margin-top:6px;}
+.diff-info-r{position:relative;z-index:2;}
+.diff-title-r{font-family:'Fraunces',serif;font-style:italic;font-size:30px;font-weight:400;line-height:1.15;margin-bottom:12px;}
+.diff-title-r strong{font-style:normal;font-weight:800;}
+.diff-bar-r{position:relative;height:12px;background:rgba(247,237,213,0.2);border:2px solid var(--ink);border-radius:100px;margin-bottom:14px;overflow:hidden;}
+.diff-bar-fill-r{height:100%;background:var(--fry);border-right:2px solid var(--ink);transition:width 0.5s;}
+.diff-rationale-r{font-size:14px;line-height:1.7;opacity:0.95;}
+
+.comps-grid-r{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-bottom:28px;}
+.comp-card-r{border:var(--frame-border);border-radius:var(--frame-radius);padding:30px 28px 26px;box-shadow:6px 6px 0 var(--ink);transition:transform 0.25s,box-shadow 0.25s;}
+.comp-card-r:hover{transform:translate(-4px,-4px);box-shadow:10px 10px 0 var(--ink);}
+.comp-card-r.c1r{background:var(--soda);}
+.comp-card-r.c2r{background:var(--pickle);color:var(--cream);}
+.comp-card-r.c3r{background:var(--cream-deep);}
+.comp-top-r{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;gap:12px;}
+.comp-name-r{font-family:'Fraunces',serif;font-weight:800;font-size:24px;letter-spacing:-0.02em;line-height:1.05;}
+.threat-stamp-r{background:var(--ink);color:var(--cream);border-radius:100px;padding:5px 11px;font-size:9px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;white-space:nowrap;}
+.threat-stamp-r.high{background:var(--ketchup-deep);}
+.threat-stamp-r.low{background:var(--pickle-deep);}
+.comp-pos-r{font-size:13px;line-height:1.6;color:var(--ink-soft);margin-bottom:18px;font-weight:500;}
+.comp-card-r.c2r .comp-pos-r{color:rgba(247,237,213,0.92);}
+.comp-sw-r{display:grid;gap:12px;margin-bottom:18px;}
+.sw-label-r{font-size:10px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:6px;display:flex;align-items:center;gap:6px;}
+.sw-label-r.up::before{content:'\2191';font-size:13px;}
+.sw-label-r.dn::before{content:'\2193';font-size:13px;}
+.sw-list-r{list-style:none;}
+.sw-list-r li{font-size:12.5px;line-height:1.5;padding:3px 0 3px 14px;position:relative;color:var(--ink-soft);}
+.comp-card-r.c2r .sw-list-r li{color:rgba(247,237,213,0.92);}
+.sw-list-r li::before{content:'';position:absolute;left:0;top:11px;width:8px;height:1.5px;background:var(--ink);}
+.comp-card-r.c2r .sw-list-r li::before{background:var(--cream);}
+.comp-gap-r{background:var(--cream);border:2px solid var(--ink);border-radius:18px;padding:14px 16px;}
+.comp-card-r.c2r .comp-gap-r{background:var(--cream);color:var(--ink);}
+.comp-card-r.c3r .comp-gap-r{background:var(--fry);}
+.gap-label-r{font-size:9px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:6px;display:flex;align-items:center;gap:6px;color:var(--ink);}
+.gap-label-r::before{content:'\2691';color:var(--ketchup);font-size:12px;}
+.gap-text-r{font-size:12.5px;line-height:1.55;font-weight:500;color:var(--ink);}
+
+.dual-grid-r{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-bottom:28px;}
+.dual-card-r{border:var(--frame-border);border-radius:var(--frame-radius);padding:36px 40px;box-shadow:6px 6px 0 var(--ink);position:relative;overflow:hidden;}
+.dual-card-r.white{background:var(--soda);}
+.dual-card-r.moat{background:var(--grape);color:var(--cream);}
+.dual-card-r::before{content:'';position:absolute;top:-40px;right:-40px;width:140px;height:140px;border-radius:50%;border:2.5px solid var(--ink);}
+.dual-card-r.white::before{background:var(--cream);}
+.dual-card-r.moat::before{background:var(--fry);}
+.dual-label-r{font-size:10px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;margin-bottom:14px;position:relative;z-index:2;}
+.dual-card-r.moat .dual-label-r{opacity:0.9;}
+.dual-headline-r{font-family:'Fraunces',serif;font-weight:400;font-style:italic;font-size:23px;line-height:1.2;margin-bottom:14px;position:relative;z-index:2;letter-spacing:-0.01em;}
+.dual-headline-r strong{font-style:normal;font-weight:800;}
+.dual-body-r{font-size:14px;line-height:1.75;position:relative;z-index:2;}
+.dual-card-r.moat .dual-body-r{opacity:0.92;}
+
+.va-grid-r{display:grid;grid-template-columns:1fr 1fr;gap:22px;}
+.va-panel-r{background:var(--cream-deep);border:var(--frame-border);border-radius:var(--frame-radius);padding:32px 36px;box-shadow:6px 6px 0 var(--ink);}
+.va-head-r{display:flex;align-items:center;gap:10px;margin-bottom:18px;}
+.va-icon-r{width:36px;height:36px;border-radius:50%;border:2.5px solid var(--ink);display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;}
+.va-panel-r.risk .va-icon-r{background:var(--ketchup);color:var(--cream);}
+.va-panel-r.gain .va-icon-r{background:var(--pickle);color:var(--cream);}
+.va-head-text-r{font-family:'Fraunces',serif;font-weight:800;font-size:22px;letter-spacing:-0.01em;}
+.va-list-r{list-style:none;}
+.va-list-r li{font-size:14px;line-height:1.6;padding:11px 0 11px 22px;position:relative;color:var(--ink-soft);border-bottom:1px dashed rgba(31,26,20,0.2);}
+.va-list-r li:last-child{border-bottom:none;}
+.va-list-r li::before{position:absolute;left:0;top:11px;font-weight:800;font-size:15px;}
+.va-panel-r.risk li::before{content:'\2193';color:var(--ketchup-deep);}
+.va-panel-r.gain li::before{content:'\2191';color:var(--pickle-deep);}
+
+.pillars-grid-r{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+.pillar-r{border:var(--frame-border);border-radius:var(--frame-radius);padding:30px 30px 26px;box-shadow:6px 6px 0 var(--ink);transition:transform 0.25s,box-shadow 0.25s;position:relative;overflow:hidden;}
+.pillar-r:hover{transform:translate(-3px,-3px);box-shadow:9px 9px 0 var(--ink);}
+.pillar-r.p1r{background:var(--fry);}
+.pillar-r.p2r{background:var(--berry);color:var(--cream);}
+.pillar-r.p3r{background:var(--soda);}
+.pillar-r.p4r{background:var(--pickle);color:var(--cream);}
+.pillar-r.p5r{background:var(--ketchup);color:var(--cream);}
+.pillar-head-r{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;gap:10px;}
+.pillar-cat-r{font-size:10px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;}
+.pillar-r.p2r .pillar-cat-r,.pillar-r.p4r .pillar-cat-r,.pillar-r.p5r .pillar-cat-r{opacity:0.9;}
+.pillar-badge-r{background:var(--ink);color:var(--cream);border-radius:100px;padding:5px 10px;font-size:9px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;white-space:nowrap;}
+.pillar-badge-r.critical{background:var(--ketchup-deep);}
+.pillar-badge-r.strong{background:var(--pickle-deep);}
+.pillar-r.p2r .pillar-badge-r.watch,.pillar-r.p4r .pillar-badge-r.watch,.pillar-r.p5r .pillar-badge-r.watch{background:var(--cream);color:var(--ink);}
+.pillar-headline-r{font-family:'Fraunces',serif;font-weight:400;font-style:italic;font-size:21px;line-height:1.15;margin-bottom:14px;letter-spacing:-0.01em;}
+.pillar-headline-r strong{font-style:normal;font-weight:800;}
+.pillar-headline-r em{font-style:italic;font-weight:400;}
+.pillar-insight-r{font-size:13.5px;line-height:1.65;margin-bottom:16px;}
+.pillar-r.p1r .pillar-insight-r,.pillar-r.p3r .pillar-insight-r{color:var(--ink-soft);}
+.pillar-r.p2r .pillar-insight-r,.pillar-r.p4r .pillar-insight-r,.pillar-r.p5r .pillar-insight-r{opacity:0.94;}
+.pillar-actions-r{list-style:none;border-top:1.5px solid rgba(31,26,20,0.2);padding-top:12px;}
+.pillar-r.p2r .pillar-actions-r,.pillar-r.p4r .pillar-actions-r,.pillar-r.p5r .pillar-actions-r{border-top-color:rgba(247,237,213,0.3);}
+.pillar-actions-r li{font-size:12.5px;line-height:1.5;padding:7px 0 7px 18px;position:relative;font-weight:500;}
+.pillar-actions-r li::before{content:'\2192';position:absolute;left:0;top:7px;font-size:14px;font-weight:800;}
+
+.scenario-float{position:fixed;bottom:30px;right:30px;z-index:100;display:flex;align-items:center;gap:10px;background:var(--ink);color:var(--cream);border:2.5px solid var(--ink);border-radius:100px;padding:16px 26px;font-family:'Figtree',sans-serif;font-weight:700;font-size:13px;letter-spacing:0.04em;text-transform:uppercase;cursor:pointer;box-shadow:5px 5px 0 var(--fry);transition:transform 0.2s,box-shadow 0.2s;}
+.scenario-float:hover{transform:translate(-3px,-3px);box-shadow:8px 8px 0 var(--fry);}
+.scenario-float::before{content:'';width:10px;height:10px;border-radius:50%;background:var(--fry);animation:pulse 2s infinite;}
+
+#screen-chat{padding-top:56px;min-height:100vh;display:none;flex-direction:column;}
+#screen-chat.active{display:flex;}
+.chat-wrap{flex:1;display:flex;flex-direction:column;max-width:820px;margin:0 auto;width:100%;padding:28px 28px 0;position:relative;z-index:5;}
+.chat-head{background:var(--grape);color:var(--cream);border:var(--frame-border);border-radius:var(--frame-radius);padding:22px 32px;margin-bottom:18px;box-shadow:5px 5px 0 var(--ink);display:flex;align-items:center;justify-content:space-between;}
+.chat-head-left{display:flex;align-items:center;gap:14px;}
+.chat-icon{width:42px;height:42px;border-radius:50%;border:2.5px solid var(--cream);background:var(--fry);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:18px;color:var(--ink);}
+.chat-title{font-family:'Fraunces',serif;font-weight:800;font-size:20px;letter-spacing:-0.01em;}
+.chat-sub{font-size:12px;opacity:0.85;font-weight:500;}
+.chat-ctx{background:rgba(247,237,213,0.2);border:1.5px solid rgba(247,237,213,0.3);border-radius:100px;padding:6px 14px;font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;}
+.chat-body{flex:1;padding:8px 0 28px;display:flex;flex-direction:column;gap:16px;}
+.chat-msg{display:flex;flex-direction:column;gap:6px;animation:rise 0.5s ease;}
+.chat-msg.user{align-items:flex-end;}
+.chat-msg.assistant{align-items:flex-start;}
+.msg-role{font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-ghost);font-weight:700;padding:0 6px;}
+.msg-bubble{max-width:88%;padding:18px 22px;border-radius:22px;font-size:14.5px;line-height:1.7;border:2.5px solid var(--ink);box-shadow:3px 3px 0 var(--ink);}
+.chat-msg.user .msg-bubble{background:var(--fry);color:var(--ink);border-bottom-right-radius:6px;}
+.chat-msg.assistant .msg-bubble{background:var(--cream);color:var(--ink);border-bottom-left-radius:6px;}
+.msg-bubble strong{background:var(--ketchup);color:var(--cream);padding:1px 6px;border-radius:4px;}
+.chat-suggestions{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;}
+.chat-sugg{background:var(--cream-deep);border:2px solid var(--ink);border-radius:100px;padding:8px 14px;font-size:12px;font-weight:600;cursor:pointer;transition:all 0.15s;box-shadow:2px 2px 0 var(--ink);}
+.chat-sugg:hover{transform:translate(-1px,-1px);box-shadow:3px 3px 0 var(--ink);background:var(--fry);}
+.chat-footer{position:sticky;bottom:0;background:var(--cream);border-top:2.5px solid var(--ink);padding:18px 28px;margin:0 -28px;z-index:10;}
+.chat-input-row{display:flex;gap:10px;max-width:820px;margin:0 auto;}
+.chat-input{flex:1;background:var(--cream-deep);border:2.5px solid var(--ink);border-radius:100px;padding:14px 22px;font-family:'Figtree',sans-serif;font-size:14px;outline:none;box-shadow:3px 3px 0 var(--ink);transition:all 0.15s;}
+.chat-input:focus{background:var(--cream);transform:translate(-1px,-1px);box-shadow:4px 4px 0 var(--ink);}
+.chat-send{background:var(--ketchup);color:var(--cream);border:2.5px solid var(--ink);border-radius:100px;padding:14px 26px;font-family:'Figtree',sans-serif;font-weight:700;font-size:12px;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;box-shadow:3px 3px 0 var(--ink);transition:all 0.15s;}
+.chat-send:hover{transform:translate(-1px,-1px);box-shadow:4px 4px 0 var(--ink);}
+.chat-send:disabled{opacity:0.5;cursor:not-allowed;}
+
+.rise{opacity:0;transform:translateY(20px);animation:rise 0.7s cubic-bezier(0.4,0,0.2,1) forwards;}
+.d0{animation-delay:0.05s;}.d1{animation-delay:0.15s;}.d2{animation-delay:0.25s;}.d3{animation-delay:0.35s;}.d4{animation-delay:0.45s;}.d5{animation-delay:0.55s;}.d6{animation-delay:0.65s;}.d7{animation-delay:0.75s;}
+@keyframes rise{to{opacity:1;transform:translateY(0);}}
+
+@media (max-width:1100px){.hero-grid{grid-template-columns:1fr;gap:60px;}.hero-title{font-size:58px;}.hero-visual{height:360px;}.how-grid{grid-template-columns:1fr 1fr;}.feats-grid{grid-template-columns:1fr 1fr;}.feat-1{grid-column:1/-1;grid-row:1;min-height:auto;}.feat-2,.feat-3,.feat-4,.feat-5{grid-column:auto;grid-row:auto;}.tiers-grid{grid-template-columns:1fr;}.tier.featured{transform:none;}.comps-grid-r,.pillars-grid-r{grid-template-columns:1fr 1fr;}.hero-r{grid-template-columns:1fr;}.cuisine-grid{grid-template-columns:repeat(4,1fr);}.option-grid{grid-template-columns:repeat(2,1fr);}.option-grid.five{grid-template-columns:repeat(3,1fr);}}
+@media (max-width:700px){.section{padding:70px 22px;}.hero-section{padding-top:110px;}.hero-title{font-size:42px;}.sec-head{font-size:34px;}.final-head{font-size:36px;}.topnav{padding:0 16px;}.tn-link{display:none;}.how-grid,.feats-grid{grid-template-columns:1fr;}.feat-1{min-height:auto;}.results-body{padding:28px 18px 100px;}.comps-grid-r,.pillars-grid-r,.dual-grid-r,.va-grid-r{grid-template-columns:1fr;}.hero-side-r{padding:28px 24px;}.receipt{padding:32px 28px 44px;}.diff-card-r{grid-template-columns:1fr;gap:20px;padding:32px;}.diff-score-num-r{font-size:100px;}.form-card{padding:32px 24px;}.form-question{font-size:30px;}.form-fields.two{grid-template-columns:1fr;}.cuisine-grid{grid-template-columns:repeat(3,1fr);}}
+</style>
+</head>
+<body>
+<nav class="topnav" id="topnav">
+  <a href="#" class="topnav-brand" onclick="goTo('landing');return false;">
+    <svg class="nav-fries" viewBox="0 0 14 14" fill="none"><rect x="3" y="2" width="8" height="9" rx="1" fill="#D8412A" stroke="#1F1A14" stroke-width="1.5"/><rect x="4.5" y="0.5" width="1.5" height="3" fill="#F5B730" stroke="#1F1A14" stroke-width="1"/><rect x="6.5" y="0.5" width="1.5" height="4" fill="#F5B730" stroke="#1F1A14" stroke-width="1"/><rect x="8.5" y="0.5" width="1.5" height="3" fill="#F5B730" stroke="#1F1A14" stroke-width="1"/></svg>
+    FOOD<span>SCOPE</span>
+  </a>
+  <div class="topnav-links">
+    <button class="tn-link active" data-nav="hero" onclick="goTo('landing','hero')">Home</button>
+    <button class="tn-link" data-nav="how" onclick="goTo('landing','how')">How It Works</button>
+    <button class="tn-link" data-nav="features" onclick="goTo('landing','features')">Features</button>
+    <button class="tn-link" data-nav="pricing" onclick="goTo('landing','pricing')">Pricing</button>
+    <button class="tn-cta" onclick="goTo('form')">Run Audit &rarr;</button>
+  </div>
+</nav>
+
+<div class="ambient">
+  <div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div><div class="blob b4"></div><div class="blob b5"></div>
+</div>
+
+<main id="screen-landing" class="screen active">
+  <section class="section hero-section" id="sec-hero">
+    <svg class="float-deco fd-burger" width="60" height="60" viewBox="0 0 60 60" fill="none">
+      <ellipse cx="30" cy="14" rx="20" ry="9" fill="#E8A93D" stroke="#1F1A14" stroke-width="2.5"/>
+      <circle cx="22" cy="11" r="1.5" fill="#1F1A14"/><circle cx="32" cy="9" r="1.5" fill="#1F1A14"/><circle cx="40" cy="12" r="1.5" fill="#1F1A14"/>
+      <path d="M10 22 Q15 28 30 28 Q45 28 50 22" stroke="#1F1A14" stroke-width="2.5" fill="#7FAB6F"/>
+      <rect x="9" y="28" width="42" height="6" fill="#D8412A" stroke="#1F1A14" stroke-width="2.5"/>
+      <ellipse cx="30" cy="40" rx="20" ry="9" fill="#E99A0B" stroke="#1F1A14" stroke-width="2.5"/>
+    </svg>
+    <svg class="float-deco fd-fry" width="48" height="58" viewBox="0 0 48 58" fill="none">
+      <path d="M8 22 L40 22 L36 54 L12 54 Z" fill="#D8412A" stroke="#1F1A14" stroke-width="2.5"/>
+      <rect x="14" y="2" width="4" height="22" fill="#F5B730" stroke="#1F1A14" stroke-width="2"/>
+      <rect x="20" y="0" width="4" height="24" fill="#F5B730" stroke="#1F1A14" stroke-width="2"/>
+      <rect x="26" y="4" width="4" height="20" fill="#F5B730" stroke="#1F1A14" stroke-width="2"/>
+      <rect x="32" y="6" width="4" height="18" fill="#F5B730" stroke="#1F1A14" stroke-width="2"/>
+    </svg>
+    <svg class="float-deco fd-soda" width="48" height="60" viewBox="0 0 48 60" fill="none">
+      <path d="M8 12 L40 12 L36 56 L12 56 Z" fill="#5EB3E4" stroke="#1F1A14" stroke-width="2.5"/>
+      <rect x="6" y="6" width="36" height="8" rx="2" fill="#F7EDD5" stroke="#1F1A14" stroke-width="2.5"/>
+      <line x1="28" y1="0" x2="28" y2="12" stroke="#1F1A14" stroke-width="2.5"/>
+    </svg>
+    <div class="hero-grid">
+      <div>
+        <div class="hero-eyebrow">QSR strategy &middot; In your pocket</div>
+        <h1 class="hero-title rise d0">Think like a <strong>QSR strategist.</strong> <span class="u">Without</span> becoming one.</h1>
+        <p class="hero-body rise d1">FoodScope runs a complete competitive brand audit on any QSR concept in under three minutes. AUV, daypart mix, drive-thru economics, franchise math, real estate strategy &mdash; the whole operating-side picture, one receipt at a time.</p>
+        <div class="hero-cta rise d2">
+          <button class="btn btn-ketchup btn-lg" onclick="goTo('form')">Run Your First Audit &rarr;</button>
+          <button class="btn btn-ghost" onclick="goTo('results')">See Sample Output</button>
+        </div>
+        <div class="hero-trust rise d3">
+          <div class="trust-avs"><div class="trust-av">JM</div><div class="trust-av">KA</div><div class="trust-av">RP</div><div class="trust-av">+</div></div>
+          <div class="trust-text">Trusted by <b>1,800+ operators</b>, founders, and<br>strategy students across North America.</div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hv-card hv-1"><div class="hvc-label">Verdict</div><div class="hvc-head"><strong>Proceed.</strong> With sharpening.</div></div>
+        <div class="hv-card hv-2"><div class="hvc-label">Differentiation</div><div class="hvc-num">68</div><div class="hvc-bar"><div class="hvc-bar-fill" style="width:68%"></div></div></div>
+        <div class="hv-card hv-3"><div class="hvc-label">Competitor &middot; Chick-fil-A</div><div class="hvc-head">High threat. <em>Throughput is the moat.</em></div></div>
+        <div class="hv-card hv-4"><div class="hvc-label">White Space</div><div class="hvc-head"><strong>Premium chicken</strong> &mdash; late-night daypart.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="how-section" id="sec-how">
+    <div class="how-wrap">
+      <div class="sec-eyebrow">&#9670; The Method</div>
+      <h2 class="sec-head">Built around <span class="u">real</span> QSR operating frameworks. Not <strong>AI fluff.</strong></h2>
+      <div class="how-grid">
+        <div class="how-card"><div class="how-num">01</div><div class="how-title">Tell Us The Concept</div><p class="how-body">Six combo-numbered sections covering identity, footprint, service mode, menu, positioning, and the strategic brief. Takes about five minutes.</p></div>
+        <div class="how-card"><div class="how-num">02</div><div class="how-title">Name Your Rivals</div><p class="how-body">Drop in three real competitors. Same daypart, same ticket band, same lane. The audit weighs your competitive set heavily &mdash; this is where it earns its keep.</p></div>
+        <div class="how-card"><div class="how-num">03</div><div class="how-title">Get The Receipt</div><p class="how-body">Strategic verdict, white space, differentiation score, competitor-by-competitor gap analysis, and five strategic pillars &mdash; printed as your audit receipt.</p></div>
+        <div class="how-card"><div class="how-num">04</div><div class="how-title">Stress-Test Ideas</div><p class="how-body">Scenario mode lets you ask follow-ups against your full audit. What if I franchise faster? Kill dine-in? Fight a chicken sandwich war?</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section feats-section" id="sec-features">
+    <div class="sec-eyebrow">&#9671; What You Get</div>
+    <h2 class="sec-head">Five ways FoodScope <strong>sharpens</strong> your <em>thinking.</em></h2>
+    <div class="feats-grid">
+      <div class="feat feat-1"><div><div class="feat-label">Signature Output</div><h3 class="feat-head">Competitor-by-competitor <strong>gap analysis</strong> &mdash; the kind operators actually need.</h3><p class="feat-body">For each competitor: their real positioning, two strengths, two weaknesses, and the specific opportunity gap you can attack. No surface-level "they're big" garbage. Real strategic territory.</p></div></div>
+      <div class="feat feat-2"><div class="feat-label">Differentiation Score</div><h3 class="feat-head"><strong>0&ndash;100,</strong> with rationale.</h3><p class="feat-body">How defensible your concept actually is in its competitive set. Honest, not generous.</p></div>
+      <div class="feat feat-3"><div class="feat-label">White Space</div><h3 class="feat-head">The <em>unowned</em> lane.</h3><p class="feat-body">Where the category is structurally underserved &mdash; and how to plant your flag there.</p></div>
+      <div class="feat feat-4"><div class="feat-label">Five Strategic Pillars</div><h3 class="feat-head">Real estate. Unit economics. Menu. Brand. <strong>Growth model.</strong></h3><p class="feat-body">Each pillar gets a priority signal, an insight paragraph, and three concrete actions to take this quarter.</p></div>
+      <div class="feat feat-5"><div class="feat-label">Scenario Mode</div><h3 class="feat-head">Chat the <em>follow-ups.</em></h3><p class="feat-body">Stress-test pricing, channels, expansion, franchising, daypart shifts &mdash; against your full audit context.</p></div>
+    </div>
+  </section>
+
+  <section class="testi-section">
+    <div class="testi-wrap">
+      <div class="testi-label">&#9670; Operator Take</div>
+      <p class="testi-quote">"I've sat in three franchise development meetings using FoodScope's white-space framing. The drive-thru-led concept's audit reframed the whole real estate conversation in five minutes."</p>
+      <div class="testi-attr"><div class="testi-av">JM</div><div><div class="testi-who">Jordan Marin</div><div class="testi-role">Multi-unit franchisee &middot; Texas</div></div></div>
+    </div>
+  </section>
+
+  <section class="section pricing-section" id="sec-pricing">
+    <div class="sec-eyebrow">&#9671; Pricing</div>
+    <h2 class="sec-head">Free where it matters. <strong>Pay</strong> when you <em>scale.</em></h2>
+    <div class="tiers-grid">
+      <div class="tier">
+        <div class="tier-name">Free</div><div class="tier-audience">Operators &middot; Founders &middot; Students</div>
+        <div class="tier-price"><span class="tier-price-amt">$0</span><span class="tier-price-per">forever</span></div>
+        <p class="tier-desc">Two complete audits per day. Full strategic depth. Zero gating on the core output.</p>
+        <ul class="tier-feats"><li>2 audits per day</li><li>Full strategic verdict + score</li><li>3-competitor deep gap analysis</li><li>Five strategic pillars</li><li>Scenario chat mode</li><li class="locked">PDF export of receipt</li><li class="locked">Audit history</li></ul>
+        <button class="btn btn-ink tier-cta" onclick="goTo('form')">Start Free &rarr;</button>
+      </div>
+      <div class="tier featured">
+        <div class="tier-ribbon">Most Popular</div>
+        <div class="tier-name">Operator</div><div class="tier-audience">Independent operators &middot; Brand teams</div>
+        <div class="tier-price"><span class="tier-price-amt">$24</span><span class="tier-price-per">/ month</span></div>
+        <p class="tier-desc">Unlimited audits, save your history, export receipts as PDFs. Built for people working through real concepts.</p>
+        <ul class="tier-feats"><li>Unlimited audits</li><li>Audit history + comparison</li><li>PDF receipt export</li><li>Priority compute (faster runs)</li><li>Custom competitor sets</li><li>Scenario history saved</li><li>Email support</li></ul>
+        <button class="btn btn-ink tier-cta">Coming Soon</button>
+      </div>
+      <div class="tier">
+        <div class="tier-name">Studio</div><div class="tier-audience">Franchise dev &middot; Agencies &middot; Funds</div>
+        <div class="tier-price"><span class="tier-price-amt">$96</span><span class="tier-price-per">/ month</span></div>
+        <p class="tier-desc">For teams running diligence on multiple concepts. Custom prompts, white-label exports, multi-seat.</p>
+        <ul class="tier-feats"><li>Everything in Operator</li><li>5-seat team access</li><li>White-label PDF exports</li><li>Custom system prompts</li><li>Comparative audit views</li><li>API access</li><li>Dedicated support</li></ul>
+        <button class="btn btn-ink tier-cta">Coming Soon</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="final-cta">
+    <div class="final-wrap">
+      <h2 class="final-head">Ready to <strong>order?</strong></h2>
+      <p class="final-body">Five minutes of input. Three minutes of compute. One audit receipt that reframes how you think about your concept.</p>
+      <button class="btn btn-fry btn-lg final-cta-btn" onclick="goTo('form')">Order Up &mdash; Run an Audit &#10022;</button>
+    </div>
+  </section>
+
+  <footer class="footer">FoodScope &middot; QSR strategy in your pocket &middot; Sibling to Brandscope (CPG) and Rackscope (apparel) &middot; Made in Vancouver</footer>
+</main>
+
+<main id="screen-form" class="screen">
+  <div class="form-bg step-0" id="form-bg"></div>
+  <div class="form-progress" id="form-progress"></div>
+  <div class="form-stage"><div id="form-steps-container"></div></div>
+</main>
+
+<main id="screen-loading" class="screen">
+  <div class="load-card">
+    <div class="load-order" id="load-order">ORDER #04721</div>
+    <div class="load-shapes"><div class="load-shape"></div><div class="load-shape"></div><div class="load-shape"></div><div class="load-shape"></div></div>
+    <h2 class="load-title">Now <em>cooking</em> your <strong>audit.</strong></h2>
+    <p class="load-sub">Hand-firing the analysis. Takes ~3 minutes &mdash; solid output, not a microwave job.</p>
+    <div class="load-steps">
+      <div class="load-step active"><div class="load-step-ic"></div>Order received &mdash; kitchen prepping</div>
+      <div class="load-step"><div class="load-step-ic"></div>Mapping the competitive set</div>
+      <div class="load-step"><div class="load-step-ic"></div>Plating the white space</div>
+      <div class="load-step"><div class="load-step-ic"></div>Scoring differentiation</div>
+      <div class="load-step"><div class="load-step-ic"></div>Garnishing the strategic pillars</div>
+      <div class="load-step"><div class="load-step-ic"></div>Bringing it to your table</div>
+    </div>
+  </div>
+</main>
+
+<main id="screen-results" class="screen">
+  <div class="results-body">
+    <section class="hero-r">
+      <div class="receipt rise d0" id="receipt">
+        <div class="receipt-paper-noise"></div>
+        <div class="receipt-header"><div class="receipt-brand-mark">FOOD<span>SCOPE</span></div><div class="receipt-tagline">QSR STRATEGIC AUDIT &middot; UNOFFICIAL</div></div>
+        <hr class="receipt-divider">
+        <div class="receipt-meta-row"><span>ORDER #<span id="r-order">04721</span></span><span id="r-date">MAY 8 2026 &middot; 14:32</span></div>
+        <div class="receipt-meta-row"><span>SERVED BY: SONNET</span><span>TABLE: WEB</span></div>
+        <div class="receipt-section-head">&mdash; BRAND ON ORDER &mdash;</div>
+        <div class="receipt-brand-line" id="r-brand">Premium Chicken QSR</div>
+        <div class="receipt-meta-row" style="justify-content:center;font-size:10px;letter-spacing:0.14em;color:var(--ink-ghost);"><span id="r-meta">CHICKEN &middot; DRIVE-THRU-LED &middot; MID-TIER</span></div>
+        <div class="receipt-section-head">&mdash; STRATEGIC VERDICT &mdash;</div>
+        <div class="receipt-verdict-line" id="r-verdict">PROCEED WITH SHARPENING</div>
+        <div style="font-family:'Fraunces',serif;font-style:italic;font-weight:500;font-size:14.5px;line-height:1.4;text-align:center;padding:8px 4px;position:relative;z-index:2;" id="r-verdict-line">A real white space &mdash; but throughput economics need <em>receipts</em> before scaling units.</div>
+        <hr class="receipt-divider">
+        <div class="receipt-section-head">&mdash; LINE ITEMS &mdash;</div>
+        <div class="receipt-item"><span class="receipt-item-name">DIFFERENTIATION SCORE</span><span class="receipt-item-val"><span id="r-score">68</span>/100</span></div>
+        <div class="receipt-score" style="margin:2px 0 6px;"><span class="receipt-score-bar" id="r-score-bar">&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;</span></div>
+        <div class="receipt-item"><span class="receipt-item-name">COMPETITIVE THREAT LEVEL</span><span class="receipt-item-val" id="r-threat">HIGH</span></div>
+        <div class="receipt-item"><span class="receipt-item-name">WHITE SPACE STATUS</span><span class="receipt-item-val" id="r-whitespace">OPEN</span></div>
+        <div class="receipt-item"><span class="receipt-item-name">STRATEGIC PILLARS</span><span class="receipt-item-val">5 / 5</span></div>
+        <div class="receipt-total"><span>TOTAL</span><span>1&times; FULL AUDIT</span></div>
+        <hr class="receipt-divider">
+        <div class="receipt-thanks">&mdash; Thank you for ordering &mdash;</div>
+        <div class="receipt-barcode" id="r-barcode"></div>
+        <div class="receipt-footer">FOODSCOPE.NETLIFY.APP &middot; KEEP RECEIPT<br>NOT VALID AS INVESTMENT ADVICE</div>
+      </div>
+      <aside class="hero-side-r rise d1">
+        <div class="verdict-top-r"><div class="verdict-label-r">Strategic Verdict</div><div class="verdict-signal-r"><span class="dot"></span> <span id="v-signal">Proceed with Sharpening</span></div></div>
+        <h2 class="verdict-headline-r" id="v-headline">A <em>real</em> white space &mdash; but throughput economics need <em>receipts</em> before scaling units.</h2>
+        <div class="verdict-actions-r">
+          <button class="btn btn-ink btn-sm" onclick="goTo('chat')">Scenario Mode &rarr;</button>
+          <button class="btn btn-cream btn-sm" onclick="goTo('landing')">New Audit</button>
+        </div>
+      </aside>
+    </section>
+
+    <div class="sec-marker rise d2"><span class="sec-num-r">01</span><h3 class="sec-title-r">The <strong>Competitive</strong> Landscape</h3><span class="sec-arrow">&#8600;</span></div>
+
+    <div class="comp-intro-r rise d2" id="comp-intro">
+      <p>The premium chicken QSR category is consolidating around a small cohort of throughput-disciplined operators who own daypart, drive-thru ergonomics, and brand. <strong>Chick-fil-A</strong> sets the AUV ceiling at $9M+ and dictates service-time benchmarks; <strong>Popeyes</strong> owns LTO virality; <strong>Raising Cane's</strong> owns menu focus discipline.</p>
+      <p>The dominant players each own one corner of the box. None have credibly stitched together premium chicken with late-night daypart capture and a labor-light operating model. The lane is <strong>narrow but real</strong>.</p>
+    </div>
+
+    <div class="diff-card-r rise d3">
+      <div class="diff-score-r"><span class="diff-score-num-r" id="diff-num">68</span><div class="diff-score-label-r">/ 100</div></div>
+      <div class="diff-info-r">
+        <h4 class="diff-title-r" id="diff-title">A <strong>genuine</strong> daypart gap, but the <em>operating model</em> hasn't been pressure-tested.</h4>
+        <div class="diff-bar-r"><div class="diff-bar-fill-r" id="diff-bar" style="width:68%"></div></div>
+        <p class="diff-rationale-r" id="diff-rat">Late-night premium chicken is structurally underserved territory. What costs points: throughput math at peak hasn't been proven, the labor model for late-night is unsolved, and the brand voice hasn't committed clearly enough to differentiate.</p>
+      </div>
+    </div>
+
+    <div class="comps-grid-r" id="comps-grid">
+      <div class="comp-card-r c1r rise d4"><div class="comp-top-r"><div class="comp-name-r">Chick-fil-A</div><div class="threat-stamp-r high">High Threat</div></div><p class="comp-pos-r">The throughput-disciplined wholesomeness brand. AUV ceiling ($9M+), zero-Sundays moat, drive-thru ergonomics define the category.</p><div class="comp-sw-r"><div><div class="sw-label-r up">Strengths</div><ul class="sw-list-r"><li>Definitional throughput &mdash; sub-3-minute drive-thru benchmarks</li><li>Brand integrity unmatched in QSR</li></ul></div><div><div class="sw-label-r dn">Weaknesses</div><ul class="sw-list-r"><li>Zero late-night daypart by religious choice</li><li>Sundays-closed leaves 1/7 of demand on table</li></ul></div></div><div class="comp-gap-r"><div class="gap-label-r">Opportunity Gap</div><div class="gap-text-r">Own the late-night and Sunday daypart they structurally cede.</div></div></div>
+      <div class="comp-card-r c2r rise d5"><div class="comp-top-r"><div class="comp-name-r">Popeyes</div><div class="threat-stamp-r">Medium Threat</div></div><p class="comp-pos-r">Bold, flavor-forward chicken with cultural muscle. Chicken-sandwich-war winner, but throughput inconsistent across franchisees.</p><div class="comp-sw-r"><div><div class="sw-label-r up">Strengths</div><ul class="sw-list-r"><li>Cultural relevance and LTO virality</li><li>Bold Cajun-coded brand voice</li></ul></div><div><div class="sw-label-r dn">Weaknesses</div><ul class="sw-list-r"><li>Franchisee operational consistency varies wildly</li><li>Drive-thru times trail Chick-fil-A by 2x</li></ul></div></div><div class="comp-gap-r"><div class="gap-label-r">Opportunity Gap</div><div class="gap-text-r">Match their flavor positioning while holding throughput discipline they can't enforce.</div></div></div>
+      <div class="comp-card-r c3r rise d6"><div class="comp-top-r"><div class="comp-name-r">Raising Cane's</div><div class="threat-stamp-r high">High Threat</div></div><p class="comp-pos-r">Menu-focus monk. Five items, AUV $5M+, fanatical brand devotion. The discipline play in a category that often sprawls.</p><div class="comp-sw-r"><div><div class="sw-label-r up">Strengths</div><ul class="sw-list-r"><li>Menu focus enables throughput and quality at scale</li><li>Cult brand devotion and college-market dominance</li></ul></div><div><div class="sw-label-r dn">Weaknesses</div><ul class="sw-list-r"><li>Five-item menu caps daypart breadth (no breakfast)</li><li>Ticket size structurally lower than competitors</li></ul></div></div><div class="comp-gap-r"><div class="gap-label-r">Opportunity Gap</div><div class="gap-text-r">Borrow their menu discipline. Add late-night and the right premium tier extension they lack.</div></div></div>
+    </div>
+
+    <div class="dual-grid-r">
+      <div class="dual-card-r white rise d4"><div class="dual-label-r">&#9671; White Space</div><h4 class="dual-headline-r" id="ws-headline"><strong>Premium chicken</strong> for the <em>late-night</em> daypart.</h4><p class="dual-body-r" id="ws-body">The premium chicken brand built around a daypart Chick-fil-A structurally cedes. Drive-thru-led economics, focused menu, late-night labor model designed from day one rather than retrofit.</p></div>
+      <div class="dual-card-r moat rise d5"><div class="dual-label-r">&#9670; Competitive Moat</div><h4 class="dual-headline-r" id="moat-headline">Late-night labor model <strong>plus throughput</strong> as the <em>durable edge.</em></h4><p class="dual-body-r" id="moat-body">The moat isn't the menu &mdash; it's the operating model. Late-night premium QSR fails when labor and throughput aren't designed for it. If unit economics work at 11pm-2am, competitors can't flank without rebuilding their P&amp;L.</p></div>
+    </div>
+
+    <div class="va-grid-r">
+      <div class="va-panel-r risk rise d6"><div class="va-head-r"><div class="va-icon-r">!</div><div class="va-head-text-r">Vulnerabilities</div></div><ul class="va-list-r" id="va-vulns"><li>Late-night labor cost is structurally higher &mdash; needs throughput to absorb</li><li>Premium chicken supply at scale is consolidated among 3-4 producers</li><li>Brand-building from zero against Chick-fil-A's $1B+ media spend is asymmetric</li></ul></div>
+      <div class="va-panel-r gain rise d7"><div class="va-head-r"><div class="va-icon-r">+</div><div class="va-head-text-r">Advantages</div></div><ul class="va-list-r" id="va-advs"><li>Late-night daypart is genuinely underserved &mdash; no premium chicken player there</li><li>Sundays-open vs Chick-fil-A is 1/7 of category demand uncontested</li><li>Drive-thru-led format allows lower real estate cost vs Chipotle-coded fast casual</li></ul></div>
+    </div>
+
+    <div class="sec-marker rise d4"><span class="sec-num-r">02</span><h3 class="sec-title-r">The <strong>Strategic</strong> Pillars</h3><span class="sec-arrow">&#8600;</span></div>
+
+    <div class="pillars-grid-r" id="pillars-grid">
+      <div class="pillar-r p1r rise d5"><div class="pillar-head-r"><div class="pillar-cat-r">Real Estate</div><div class="pillar-badge-r critical">Critical</div></div><h4 class="pillar-headline-r"><strong>Drive-thru-led</strong> end-cap pad sites &mdash; <em>not</em> in-line.</h4><p class="pillar-insight-r">The late-night thesis dies in mall food courts. End-cap pad sites with drive-thru and parking depth are the only format where the late-night labor and throughput economics hold up.</p><ul class="pillar-actions-r"><li>Lock pad-site only as Year-1-3 real estate criteria</li><li>Underwrite at 60%+ drive-thru sales mix</li><li>Reject mall and in-line offers regardless of rent discount</li></ul></div>
+      <div class="pillar-r p2r rise d6"><div class="pillar-head-r"><div class="pillar-cat-r">Unit Economics</div><div class="pillar-badge-r watch">Watch</div></div><h4 class="pillar-headline-r">Late-night daypart <em>must</em> earn at <strong>15%+ four-wall.</strong></h4><p class="pillar-insight-r">Late-night premium chicken has never proven out at scale because labor cost overwhelms slower ticket velocity. Model unit economics with hourly throughput minimums.</p><ul class="pillar-actions-r"><li>Build hourly P&amp;L with labor minimums, not just daily</li><li>Set kill criteria &mdash; drop late-night below 12% four-wall = pull back hours</li><li>Negotiate chicken supply at 6%+ scale discount before unit 5</li></ul></div>
+      <div class="pillar-r p3r rise d5"><div class="pillar-head-r"><div class="pillar-cat-r">Menu Strategy</div><div class="pillar-badge-r critical">Critical</div></div><h4 class="pillar-headline-r">Borrow Cane's <strong>focus</strong> &mdash; but extend the <em>day.</em></h4><p class="pillar-insight-r">Premium chicken with breakfast + late-night needs a menu narrow enough for throughput but flexible enough for daypart capture. Six core items max.</p><ul class="pillar-actions-r"><li>Cap core menu at 6 items at launch</li><li>Build 2 daypart-specific LTOs for first year</li><li>Avoid "build-your-own" model &mdash; kills throughput</li></ul></div>
+      <div class="pillar-r p4r rise d6"><div class="pillar-head-r"><div class="pillar-cat-r">Marketing &amp; Brand</div><div class="pillar-badge-r watch">Watch</div></div><h4 class="pillar-headline-r">Position <em>against</em> Chick-fil-A's <strong>closed signs.</strong></h4><p class="pillar-insight-r">"Open when they're closed" is a positioning the category has never claimed. Frame the brand around availability and reliability for the always-on consumer.</p><ul class="pillar-actions-r"><li>Lock brand voice around availability + reliability</li><li>Avoid direct comparison ads &mdash; use cultural product placement instead</li><li>Build founder narrative around late-night as a service gap</li></ul></div>
+      <div class="pillar-r p5r rise d5"><div class="pillar-head-r"><div class="pillar-cat-r">Growth Model</div><div class="pillar-badge-r strong">Strong</div></div><h4 class="pillar-headline-r">Corporate-only first <strong>10 units.</strong> Then franchise <em>aggressively.</em></h4><p class="pillar-insight-r">The late-night labor model is too unproven to franchise at unit 2. Run 10 corporate units across three markets to lock the playbook, then franchise hard.</p><ul class="pillar-actions-r"><li>Run first 10 units corporate, three test markets</li><li>Open franchise sales at unit 11 with proven AUV / margin documentation</li><li>Target 75% franchise / 25% corporate by year 5</li></ul></div>
+    </div>
+  </div>
+  <button class="scenario-float" onclick="goTo('chat')">Scenario Mode &rarr;</button>
+</main>
+
+<main id="screen-chat" class="screen">
+  <div class="chat-wrap">
+    <div class="chat-head">
+      <div class="chat-head-left"><div class="chat-icon">&#10022;</div><div><div class="chat-title">Scenario Mode</div><div class="chat-sub">Full audit context loaded</div></div></div>
+      <div class="chat-ctx" id="chat-ctx">Premium Chicken QSR &middot; Pre-launch</div>
+    </div>
+    <div class="chat-body" id="chat-body">
+      <div class="chat-msg assistant">
+        <div class="msg-role">FoodScope</div>
+        <div class="msg-bubble">Scenario mode is active &mdash; your full brand audit is loaded as context. Ask me anything you want to stress-test: pricing, daypart, franchise math, real estate, head-to-head competitor plays.</div>
+        <div class="chat-suggestions">
+          <button class="chat-sugg">What if we kill the dine-in entirely?</button>
+          <button class="chat-sugg">Can we make breakfast work?</button>
+          <button class="chat-sugg">How do we defend against $5 meal deals?</button>
+          <button class="chat-sugg">Should we franchise internationally first?</button>
+        </div>
+      </div>
+    </div>
+    <div class="chat-footer">
+      <div class="chat-input-row">
+        <input type="text" class="chat-input" id="chat-input" placeholder="Ask anything about your QSR strategy..." onkeydown="onChatKey(event)">
+        <button class="chat-send" id="chat-send" onclick="sendChat()">Send &rarr;</button>
+      </div>
+    </div>
+  </div>
+</main>
+<script>
+// ═══════════════════════════════════════════════════════════════════
+// FOOD ICONS — small SVG library for cuisine + option cards
+// ═══════════════════════════════════════════════════════════════════
+const ICONS = {
+  burger: `<svg class="cuisine-icon" viewBox="0 0 36 36" fill="none"><ellipse cx="18" cy="9" rx="13" ry="5" fill="#E8A93D" stroke="#1F1A14" stroke-width="2"/><circle cx="13" cy="7" r="0.8" fill="#1F1A14"/><circle cx="20" cy="6" r="0.8" fill="#1F1A14"/><circle cx="24" cy="8" r="0.8" fill="#1F1A14"/><path d="M5 14 Q9 17 18 17 Q27 17 31 14" stroke="#1F1A14" stroke-width="2" fill="#7FAB6F"/><rect x="4.5" y="17" width="27" height="4" fill="#D8412A" stroke="#1F1A14" stroke-width="2"/><ellipse cx="18" cy="24" rx="13" ry="5" fill="#E99A0B" stroke="#1F1A14" stroke-width="2"/></svg>`,
+  pizza: `<svg class="cuisine-icon" viewBox="0 0 36 36" fill="none"><path d="M18 4 L30 28 L6 28 Z" fill="#E8A93D" stroke="#1F1A14" stroke-width="2" stroke-linejoin="round"/><path d="M9 25 L27 25" stroke="#D8412A" stroke-width="2" stroke-linecap="round"/><circle cx="14" cy="16" r="2" fill="#D8412A" stroke="#1F1A14" stroke-width="1.5"/><circle cx="22" cy="14" r="2" fill="#D8412A" stroke="#1F1A14" stroke-width="1.5"/><circle cx="18" cy="22" r="2" fill="#D8412A" stroke="#1F1A14" stroke-width="1.5"/></svg>`,
+  chicken: `<svg class="cuisine-icon" viewBox="0 0 36 36" fill="none"><path d="M8 22 Q8 12 18 12 Q28 12 28 22 L28 28 L8 28 Z" fill="#E99A0B" stroke="#1F1A14" stroke-width="2" stroke-linejoin="round"/><path d="M14 22 Q14 16 18 16 Q22 16 22 22" stroke="#1F1A14" stroke-width="1.5" fill="none"/><circle cx="14" cy="20" r="0.8" fill="#1F1A14"/><circle cx="22" cy="20" r="0.8" fill="#1F1A14"/></svg>`,
+  taco: `<svg class="cuisine-icon" viewBox="0 0 36 36" fill="none"><path d="M4 26 Q4 12 18 12 Q32 12 32 26 Z" fill="#F5B730" stroke="#1F1A14" stroke-width="2" stroke-linejoin="round"/><path d="M9 24 Q14 17 18 17 Q22 17 27 24" stroke="#7FAB6F" stroke-width="2.5" fill="none" stroke-linecap="round"/><circle cx="13" cy="22" r="1.5" fill="#D8412A"/><circle cx="20" cy="22" r="1.5" fill="#D8412A"/><circle cx="24" cy="20" r="1.5" fill="#D8412A"/></svg>`,
+  sandwich: `<svg class="cuisine-icon" viewBox="0 0 36 36" fill="none"><rect x="5" y="9" width="26" height="5" fill="#E8A93D" stroke="#1F1A14" stroke-width="2"/><rect x="5" y="14" width="26" height="3" fill="#7FAB6F" stroke="#1F1A14" stroke-width="2"/><rect x="5" y="17" width="26" height="3" fill="#D8412A" stroke="#1F1A14" stroke-width="2"/><rect x="5" y="20" width="26" height="3" fill="#F5B730" stroke="#1F1A14" stroke-width="2"/><rect x="5" y="23" width="26" height="5" fill="#E99A0B" stroke="#1F1A14" stroke-width="2"/></svg>`,
+  coffee: `<svg class="cuisine-icon" viewBox="0 0 36 36" fill="none"><path d="M9 14 L9 28 Q9 30 11 30 L23 30 Q25 30 25 28 L25 14 Z" fill="#5C3320" stroke="#1F1A14" stroke-width="2" stroke-linejoin="round"/><path d="M25 17 Q30 17 30 20 Q30 23 25 23" stroke="#1F1A14" stroke-width="2" fill="none"/><path d="M13 6 Q14 9 13 12" stroke="#1F1A14" stroke-width="1.5" fill="none" stroke-linecap="round"/><path d="M17 4 Q18 8 17 12" stroke="#1F1A14" stroke-width="1.5" fill="none" stroke-linecap="round"/><path d="M21 6 Q22 9 21 12" stroke="#1F1A14" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>`,
+  bowl: `<svg class="cuisine-icon" viewBox="0 0 36 36" fill="none"><path d="M5 16 Q5 28 18 28 Q31 28 31 16 Z" fill="#7FAB6F" stroke="#1F1A14" stroke-width="2" stroke-linejoin="round"/><line x1="12" y1="6" x2="22" y2="20" stroke="#1F1A14" stroke-width="2" stroke-linecap="round"/><line x1="24" y1="6" x2="14" y2="20" stroke="#1F1A14" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="20" r="1.5" fill="#D8412A"/><circle cx="20" cy="22" r="1.5" fill="#F5B730"/></svg>`,
+  asian: `<svg class="cuisine-icon" viewBox="0 0 36 36" fill="none"><path d="M5 18 Q5 28 18 28 Q31 28 31 18 Z" fill="#E8A93D" stroke="#1F1A14" stroke-width="2" stroke-linejoin="round"/><path d="M3 18 L33 18" stroke="#1F1A14" stroke-width="2" stroke-linecap="round"/><path d="M9 14 Q12 16 15 14" stroke="#1F1A14" stroke-width="1.5" fill="none"/><path d="M16 12 Q19 14 22 12" stroke="#1F1A14" stroke-width="1.5" fill="none"/><line x1="26" y1="6" x2="32" y2="14" stroke="#1F1A14" stroke-width="2" stroke-linecap="round"/></svg>`,
+  dessert: `<svg class="cuisine-icon" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="11" r="8" fill="#F7EDD5" stroke="#1F1A14" stroke-width="2"/><path d="M11 12 Q14 10 17 12 Q20 14 23 12 Q26 10 25 12" stroke="#D8412A" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M11 17 L18 32 L25 17 Z" fill="#E8A93D" stroke="#1F1A14" stroke-width="2" stroke-linejoin="round"/></svg>`,
+  hybrid: `<svg class="cuisine-icon" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="13" fill="#7B5FBF" stroke="#1F1A14" stroke-width="2"/><path d="M18 5 L21 14 L31 14 L23 20 L26 30 L18 24 L10 30 L13 20 L5 14 L15 14 Z" fill="#F5B730" stroke="#1F1A14" stroke-width="1.5" stroke-linejoin="round"/></svg>`,
+  counter: `<svg class="opt-icon" viewBox="0 0 32 32" fill="none"><rect x="2" y="20" width="28" height="8" rx="1" fill="#F5B730" stroke="#1F1A14" stroke-width="2"/><circle cx="16" cy="11" r="5" fill="#E8A93D" stroke="#1F1A14" stroke-width="2"/><path d="M9 20 Q10 14 16 14 Q22 14 23 20" stroke="#1F1A14" stroke-width="2" fill="none"/></svg>`,
+  drivethru: `<svg class="opt-icon" viewBox="0 0 32 32" fill="none"><rect x="3" y="14" width="22" height="10" rx="2" fill="#D8412A" stroke="#1F1A14" stroke-width="2"/><rect x="6" y="9" width="13" height="6" rx="1" fill="#5EB3E4" stroke="#1F1A14" stroke-width="2"/><circle cx="9" cy="25" r="2.5" fill="#1F1A14"/><circle cx="20" cy="25" r="2.5" fill="#1F1A14"/></svg>`,
+  delivery: `<svg class="opt-icon" viewBox="0 0 32 32" fill="none"><rect x="6" y="6" width="14" height="12" rx="1" fill="#7FAB6F" stroke="#1F1A14" stroke-width="2"/><path d="M20 11 L26 11 L28 18 L20 18 Z" fill="#F5B730" stroke="#1F1A14" stroke-width="2" stroke-linejoin="round"/><circle cx="11" cy="24" r="3" fill="#1F1A14"/><circle cx="24" cy="24" r="3" fill="#1F1A14"/></svg>`,
+  hybrid_svc: `<svg class="opt-icon" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="12" fill="#7B5FBF" stroke="#1F1A14" stroke-width="2"/><path d="M10 16 L22 16 M16 10 L16 22" stroke="#F5B730" stroke-width="2.5" stroke-linecap="round"/></svg>`,
+  morning: `<svg class="opt-icon" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="22" r="6" fill="#F5B730" stroke="#1F1A14" stroke-width="2"/><path d="M2 22 L30 22" stroke="#1F1A14" stroke-width="2"/><path d="M16 4 L16 9 M6 8 L9 11 M26 8 L23 11" stroke="#E99A0B" stroke-width="2" stroke-linecap="round"/></svg>`,
+  allday: `<svg class="opt-icon" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="6" fill="#F5B730" stroke="#1F1A14" stroke-width="2"/><line x1="16" y1="2" x2="16" y2="6" stroke="#1F1A14" stroke-width="2" stroke-linecap="round"/><line x1="16" y1="26" x2="16" y2="30" stroke="#1F1A14" stroke-width="2" stroke-linecap="round"/><line x1="2" y1="16" x2="6" y2="16" stroke="#1F1A14" stroke-width="2" stroke-linecap="round"/><line x1="26" y1="16" x2="30" y2="16" stroke="#1F1A14" stroke-width="2" stroke-linecap="round"/></svg>`,
+  midday: `<svg class="opt-icon" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="14" r="7" fill="#E8A93D" stroke="#1F1A14" stroke-width="2"/><path d="M3 14 L29 14" stroke="#1F1A14" stroke-width="2"/></svg>`,
+  latenight: `<svg class="opt-icon" viewBox="0 0 32 32" fill="none"><path d="M22 6 Q14 10 14 18 Q14 26 22 28 Q14 28 9 22 Q5 16 9 10 Q14 4 22 6 Z" fill="#7B5FBF" stroke="#1F1A14" stroke-width="2" stroke-linejoin="round"/><circle cx="6" cy="8" r="0.8" fill="#F5B730"/></svg>`,
+  padsite: `<svg class="opt-icon" viewBox="0 0 32 32" fill="none"><rect x="6" y="14" width="20" height="14" fill="#D8412A" stroke="#1F1A14" stroke-width="2"/><path d="M4 14 L16 6 L28 14" fill="#E99A0B" stroke="#1F1A14" stroke-width="2" stroke-linejoin="round"/><rect x="14" y="20" width="4" height="8" fill="#1F1A14"/></svg>`,
+  storefront: `<svg class="opt-icon" viewBox="0 0 32 32" fill="none"><rect x="4" y="10" width="24" height="18" fill="#5EB3E4" stroke="#1F1A14" stroke-width="2"/><rect x="3" y="6" width="26" height="6" fill="#D8412A" stroke="#1F1A14" stroke-width="2"/><rect x="13" y="18" width="6" height="10" fill="#1F1A14"/></svg>`,
+  mall: `<svg class="opt-icon" viewBox="0 0 32 32" fill="none"><rect x="3" y="10" width="26" height="18" fill="#E8A93D" stroke="#1F1A14" stroke-width="2"/><rect x="5" y="20" width="4" height="8" fill="#7FAB6F"/><rect x="14" y="20" width="4" height="8" fill="#D8412A"/><rect x="23" y="20" width="4" height="8" fill="#5EB3E4"/><path d="M2 10 L16 4 L30 10" fill="#1F1A14" stroke="#1F1A14" stroke-width="2" stroke-linejoin="round"/></svg>`,
+  ghost: `<svg class="opt-icon" viewBox="0 0 32 32" fill="none"><path d="M8 12 Q8 6 16 6 Q24 6 24 12 L24 24 L21 22 L18 24 L15 22 L11 24 L8 22 Z" fill="#7B5FBF" stroke="#1F1A14" stroke-width="2" stroke-linejoin="round"/><circle cx="13" cy="14" r="1.2" fill="#1F1A14"/><circle cx="19" cy="14" r="1.2" fill="#1F1A14"/></svg>`,
+  mixed: `<svg class="opt-icon" viewBox="0 0 32 32" fill="none"><rect x="3" y="14" width="12" height="14" fill="#5EB3E4" stroke="#1F1A14" stroke-width="2"/><rect x="17" y="10" width="12" height="18" fill="#D8412A" stroke="#1F1A14" stroke-width="2"/></svg>`,
+  fountain: `<svg class="opt-icon" viewBox="0 0 32 32" fill="none"><path d="M8 8 L24 8 L22 28 L10 28 Z" fill="#5EB3E4" stroke="#1F1A14" stroke-width="2" stroke-linejoin="round"/><rect x="6" y="4" width="20" height="5" rx="1" fill="#F7EDD5" stroke="#1F1A14" stroke-width="2"/><line x1="20" y1="0" x2="20" y2="8" stroke="#1F1A14" stroke-width="2"/></svg>`,
+  premium_bev: `<svg class="opt-icon" viewBox="0 0 32 32" fill="none"><path d="M9 4 L23 4 L21 18 Q21 22 16 22 Q11 22 11 18 Z" fill="#7B5FBF" stroke="#1F1A14" stroke-width="2" stroke-linejoin="round"/><line x1="16" y1="22" x2="16" y2="29" stroke="#1F1A14" stroke-width="2"/><line x1="11" y1="29" x2="21" y2="29" stroke="#1F1A14" stroke-width="2.5" stroke-linecap="round"/></svg>`,
+  signature: `<svg class="opt-icon" viewBox="0 0 32 32" fill="none"><path d="M10 6 L22 6 L20 24 L12 24 Z" fill="#D8412A" stroke="#1F1A14" stroke-width="2" stroke-linejoin="round"/><path d="M10 6 Q11 2 16 2 Q21 2 22 6" stroke="#1F1A14" stroke-width="2" fill="#F5B730"/></svg>`,
+  alcohol_inc: `<svg class="opt-icon" viewBox="0 0 32 32" fill="none"><path d="M8 6 L24 6 L20 16 L20 26 L22 26 L22 28 L10 28 L10 26 L12 26 L12 16 Z" fill="#E8A93D" stroke="#1F1A14" stroke-width="2" stroke-linejoin="round"/><path d="M11 11 L21 11" stroke="#1F1A14" stroke-width="1.5"/></svg>`,
+  coffee_led: `<svg class="opt-icon" viewBox="0 0 32 32" fill="none"><path d="M8 12 L8 26 Q8 28 10 28 L20 28 Q22 28 22 26 L22 12 Z" fill="#5C3320" stroke="#1F1A14" stroke-width="2" stroke-linejoin="round"/><path d="M22 16 Q26 16 26 19 Q26 22 22 22" stroke="#1F1A14" stroke-width="2" fill="none"/><path d="M11 5 Q12 8 11 11 M15 3 Q16 7 15 11" stroke="#1F1A14" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>`
+};
+
+// ═══════════════════════════════════════════════════════════════════
+// FORM_STEPS — six combo-numbered sections with QSR primitives
+// ═══════════════════════════════════════════════════════════════════
+const FORM_STEPS = [
+  {
+    label: '#1 of 6 · Identity',
+    question: 'What are we <strong>auditing?</strong>',
+    hint: 'Start with the basics. Sharper input = sharper output.',
+    fields: [
+      {id:'brand_name', label:'Brand / Concept Name', placeholder:'e.g. Late Bird Chicken Co.', type:'text', full:true},
+      {id:'year_founded', label:'Year Founded (or planned)', placeholder:'e.g. 2024', type:'text'},
+      {id:'hq_market', label:'HQ Market', placeholder:'e.g. Austin, TX', type:'text'},
+      {id:'cuisine', label:'Cuisine Category', type:'cuisine_grid', full:true,
+        options:[
+          {key:'Burger', icon:'burger'},{key:'Pizza', icon:'pizza'},{key:'Chicken', icon:'chicken'},
+          {key:'Mexican', icon:'taco'},{key:'Sandwich', icon:'sandwich'},{key:'Coffee/Breakfast', icon:'coffee'},
+          {key:'Bowl/Salad', icon:'bowl'},{key:'Asian', icon:'asian'},{key:'Dessert/Treat', icon:'dessert'},
+          {key:'Hybrid', icon:'hybrid'}
+        ]
+      }
+    ]
+  },
+  {
+    label: '#2 of 6 · Footprint & Ownership',
+    question: 'How <em>big</em> and <em>who owns</em> what?',
+    hint: 'Unit count, geographic reach, real estate format, and the franchise/corporate split.',
+    fields: [
+      {id:'unit_count', label:'Unit Count', type:'slider_stops', full:true,
+        stops:['Single unit','Under 50','50-500','500-5,000','5,000+']},
+      {id:'geo_reach', label:'Geographic Reach', type:'select',
+        options:['Single market','Regional','National','International','Global']},
+      {id:'re_format', label:'Real Estate Format', type:'option_grid', full:true, gridClass:'five', selectedColor:'fr',
+        options:[
+          {key:'Drive-thru pad', icon:'padsite'},{key:'Urban storefront', icon:'storefront'},
+          {key:'Mall / food court', icon:'mall'},{key:'Ghost kitchen', icon:'ghost'},{key:'Mixed', icon:'mixed'}
+        ]
+      },
+      {id:'franchise_pct', label:'Franchise vs Corporate Mix', type:'dual_slider', full:true,
+        leftLabel:'Franchise', rightLabel:'Corporate', defaultValue:50}
+    ]
+  },
+  {
+    label: '#3 of 6 · Service Model',
+    question: 'How does the <strong>order</strong> happen?',
+    hint: 'Service mode, daypart, ticket band, and the off-premise mix.',
+    fields: [
+      {id:'service_mode', label:'Primary Service Mode', type:'option_grid', full:true, selectedColor:'kx',
+        options:[
+          {key:'Counter', icon:'counter'},{key:'Drive-thru', icon:'drivethru'},
+          {key:'Delivery-led', icon:'delivery'},{key:'Hybrid', icon:'hybrid_svc'}
+        ]
+      },
+      {id:'daypart', label:'Daypart Focus', type:'option_grid', full:true, selectedColor:'fr',
+        options:[
+          {key:'Breakfast-led', icon:'morning'},{key:'All-day', icon:'allday'},
+          {key:'Lunch & Dinner', icon:'midday'},{key:'Late-night', icon:'latenight'}
+        ]
+      },
+      {id:'ticket_band', label:'Average Ticket Size', type:'slider_stops', full:true,
+        stops:['<$8','$8-15','$15-25','$25+']},
+      {id:'offpremise_pct', label:'Off-Premise Mix', type:'pct_slider', full:true,
+        leftStop:'In-house', rightStop:'Off-premise', defaultValue:40, suffix:'%'}
+    ]
+  },
+  {
+    label: '#4 of 6 · Menu Strategy',
+    question: 'What\'s on the <em>menu?</em>',
+    hint: 'Breadth, LTO cadence, hero item, and the beverage program.',
+    fields: [
+      {id:'menu_breadth', label:'Menu Breadth', type:'slider_stops', full:true,
+        stops:['Focused (5-15)','Mid (15-30)','Broad (30+)']},
+      {id:'lto_cadence', label:'LTO Cadence', type:'select',
+        options:['Monthly','Quarterly','Occasional','Rare to none']},
+      {id:'hero_item', label:'Hero / Signature Item', placeholder:'e.g. Buttermilk fried chicken sandwich', type:'text'},
+      {id:'beverage', label:'Beverage Program', type:'option_grid', full:true, gridClass:'five', selectedColor:'pk',
+        options:[
+          {key:'Basic fountain', icon:'fountain'},{key:'Premium bevs', icon:'premium_bev'},
+          {key:'Signature drinks', icon:'signature'},{key:'Alcohol-inclusive', icon:'alcohol_inc'},
+          {key:'Coffee-led', icon:'coffee_led'}
+        ]
+      }
+    ]
+  },
+  {
+    label: '#5 of 6 · Positioning',
+    question: 'Where do you <strong>stand</strong> in the lineup?',
+    hint: 'Price tier, brand personality, occasion, and the three real competitors that share your lane.',
+    fields: [
+      {id:'price_tier', label:'Price Tier', type:'slider_stops', full:true,
+        stops:['Deep value','Value','Mid-tier QSR','Fast casual','Premium FC']},
+      {id:'personality', label:'Brand Personality (pick one)', type:'chips', full:true,
+        options:['Irreverent','Wholesome','Indulgent','Healthful / Clean','Craft','Nostalgic']},
+      {id:'occasion', label:'Primary Occasion', type:'select',
+        options:['Everyday fuel','Family meal','Treat','Healthy lunch','Breakfast routine','Late-night']},
+      {type:'competitors', full:true}
+    ]
+  },
+  {
+    label: '#6 of 6 · The Brief',
+    question: 'What\'s the <em>real</em> question?',
+    hint: 'One open field. The strategic question this audit should chew on. Skip if you want a full sweep.',
+    fields: [
+      {id:'brief', label:'The Strategic Question', type:'textarea', full:true,
+        placeholder:'e.g. We\'re three units in. Should we open #4 corporate-owned in a new state, or franchise within the home market first?'}
+    ]
+  }
+];
+
+// ═══════════════════════════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════════════════════════
+let currentStep = 0;
+const FORM_DATA = {};
+let CURRENT_AUDIT = null;
+const ORDER_NUMBER = String(Math.floor(Math.random() * 89999) + 10000);
+const CHAT_HISTORY = [];
+
+function escHtml(s) {
+  if (s == null) return '';
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+
+function escWithEmphasis(s) {
+  if (s == null) return '';
+  let out = String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+  out = out.replace(/&lt;em&gt;([^&]*?)&lt;\/em&gt;/g,'<em>$1</em>');
+  out = out.replace(/&lt;strong&gt;([^&]*?)&lt;\/strong&gt;/g,'<strong>$1</strong>');
+  return out;
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// NAVIGATION
+// ═══════════════════════════════════════════════════════════════════
+function goTo(screen, sectionId) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById('screen-' + screen).classList.add('active');
+  window.scrollTo({top:0, behavior:'instant'});
+  if (screen === 'form') initForm();
+  if (sectionId) {
+    setTimeout(() => {
+      const el = document.getElementById('sec-' + sectionId);
+      if (el) el.scrollIntoView({behavior:'smooth'});
+    }, 100);
+  }
+}
+
+const NAV_SECTIONS = ['hero','how','features','pricing'];
+window.addEventListener('scroll', () => {
+  if (!document.getElementById('screen-landing').classList.contains('active')) return;
+  let current = 'hero';
+  NAV_SECTIONS.forEach(s => {
+    const el = document.getElementById('sec-' + s);
+    if (el) {
+      const rect = el.getBoundingClientRect();
+      if (rect.top <= 140 && rect.bottom >= 140) current = s;
+    }
+  });
+  document.querySelectorAll('.tn-link[data-nav]').forEach(l => {
+    l.classList.toggle('active', l.dataset.nav === current);
+  });
+});
+
+// ═══════════════════════════════════════════════════════════════════
+// FORM RENDERING
+// ═══════════════════════════════════════════════════════════════════
+function initForm() {
+  renderProgress();
+  renderStep();
+}
+
+function renderProgress() {
+  const prog = document.getElementById('form-progress');
+  prog.innerHTML = FORM_STEPS.map((_, i) => `<div class="fp-dot ${i < currentStep ? 'done' : ''} ${i === currentStep ? 'current' : ''}" onclick="jumpToStep(${i})"></div>`).join('');
+}
+
+function jumpToStep(i) {
+  saveCurrentStepData();
+  currentStep = i;
+  renderProgress();
+  renderStep();
+}
+
+function renderStep() {
+  const step = FORM_STEPS[currentStep];
+  document.getElementById('form-bg').className = 'form-bg step-' + currentStep;
+
+  const fields = step.fields || [];
+  const fieldHtml = fields.map(f => renderField(f, FORM_DATA[f.id])).join('');
+  const hasFull = fields.some(f => f.full);
+  const wrapperClass = hasFull ? 'form-fields' : 'form-fields two';
+  const fieldsBlock = `<div class="${wrapperClass}">${fieldHtml}</div>`;
+
+  const labelParts = step.label.split('·');
+  const labelHtml = labelParts.length === 2
+    ? `<span class="combo-num">${labelParts[0].trim()}</span> · ${labelParts[1].trim()}`
+    : step.label;
+
+  const isLast = currentStep === FORM_STEPS.length - 1;
+  const ctaText = isLast ? 'Order Up — Run Audit ✦' : 'Continue →';
+
+  document.getElementById('form-steps-container').innerHTML = `
+    <div class="form-card rise d0">
+      <div class="form-step-label">${labelHtml}</div>
+      <h2 class="form-question">${step.question}</h2>
+      <p class="form-hint">${step.hint}</p>
+      ${fieldsBlock}
+      <div class="form-nav-row">
+        <div>${currentStep > 0 ? '<button class="btn btn-ghost btn-sm" onclick="prevStep()">← Back</button>' : ''}</div>
+        <div class="form-keys">
+          <span><span class="kbd">Tab</span> to move</span>
+          <button class="btn btn-ketchup" onclick="nextStep()">${ctaText}</button>
+        </div>
+      </div>
+    </div>`;
+
+  wireInteractiveFields();
+}
+
+function renderField(f, value) {
+  const fullStyle = f.full ? 'grid-column:1/-1;' : '';
+  const wrap = (inner, label) => `<div class="ff-group" style="${fullStyle}">${label ? `<label class="ff-label">${escHtml(label)}</label>` : ''}${inner}</div>`;
+
+  switch (f.type) {
+    case 'text':
+      return wrap(`<input class="ff-input" id="${f.id}" type="text" placeholder="${escHtml(f.placeholder || '')}" value="${escHtml(value || '')}">`, f.label);
+
+    case 'textarea':
+      return wrap(`<textarea class="ff-textarea" id="${f.id}" placeholder="${escHtml(f.placeholder || '')}">${escHtml(value || '')}</textarea>`, f.label);
+
+    case 'select': {
+      const opts = ['<option value="">Select…</option>'].concat(
+        f.options.map(o => `<option value="${escHtml(o)}" ${value === o ? 'selected' : ''}>${escHtml(o)}</option>`)
+      ).join('');
+      return wrap(`<select class="ff-select" id="${f.id}">${opts}</select>`, f.label);
+    }
+
+    case 'cuisine_grid': {
+      const cards = f.options.map(o => `
+        <div class="cuisine-card ${value === o.key ? 'selected' : ''}" data-cuisine="${escHtml(o.key)}">
+          ${ICONS[o.icon] || ''}
+          <div class="cuisine-name">${escHtml(o.key)}</div>
+        </div>`).join('');
+      return wrap(`<input type="hidden" id="${f.id}" value="${escHtml(value || '')}"><div class="cuisine-grid" data-target="${f.id}">${cards}</div>`, f.label);
+    }
+
+    case 'option_grid': {
+      const gridClass = f.gridClass || '';
+      const colorClass = f.selectedColor || '';
+      const cards = f.options.map(o => `
+        <div class="opt-card ${value === o.key ? 'selected ' + colorClass : ''}" data-opt="${escHtml(o.key)}">
+          ${ICONS[o.icon] || ''}
+          <div class="opt-name">${escHtml(o.key)}</div>
+        </div>`).join('');
+      return wrap(`<input type="hidden" id="${f.id}" value="${escHtml(value || '')}"><div class="option-grid ${gridClass}" data-target="${f.id}" data-color="${colorClass}">${cards}</div>`, f.label);
+    }
+
+    case 'chips': {
+      const chips = f.options.map(o => `<div class="chip ${value === o ? 'selected' : ''}" data-chip="${escHtml(o)}">${escHtml(o)}</div>`).join('');
+      return wrap(`<input type="hidden" id="${f.id}" value="${escHtml(value || '')}"><div class="chip-grid" data-target="${f.id}">${chips}</div>`, f.label);
+    }
+
+    case 'slider_stops': {
+      const stops = f.stops;
+      // value can be the actual stop label (after save) or a number (initial)
+      let idx;
+      if (value !== undefined && value !== '') {
+        const found = stops.indexOf(value);
+        idx = found >= 0 ? found : (Number.isFinite(Number(value)) ? Number(value) : Math.floor(stops.length / 2));
+      } else {
+        idx = Math.floor(stops.length / 2);
+      }
+      const pct = (idx / (stops.length - 1)) * 100;
+      const stopsHtml = stops.map(s => `<div class="slider-stop">${escHtml(s)}</div>`).join('');
+      const stopsAttr = JSON.stringify(stops).replace(/'/g, '&#39;').replace(/"/g, '&quot;');
+      return wrap(`
+        <div class="slider-wrap">
+          <div class="slider-headline">
+            <span class="slider-headline-left">${escHtml(f.label)}</span>
+            <span class="slider-headline-right" id="${f.id}_display">${escHtml(stops[idx])}</span>
+          </div>
+          <div class="slider-track">
+            <div class="slider-fill" id="${f.id}_fill" style="width:${pct}%"></div>
+            <input type="range" class="slider-input" id="${f.id}" min="0" max="${stops.length - 1}" step="1" value="${idx}" data-stops="${stopsAttr}" data-kind="stops">
+          </div>
+          <div class="slider-stops">${stopsHtml}</div>
+        </div>`, null);
+    }
+
+    case 'pct_slider': {
+      // Stored value is "40%" string after save, or number on init
+      let v;
+      if (value !== undefined && value !== '') {
+        v = parseInt(String(value).replace(/[^0-9]/g, '')) || (f.defaultValue || 50);
+      } else {
+        v = f.defaultValue || 50;
+      }
+      return wrap(`
+        <div class="slider-wrap">
+          <div class="slider-headline">
+            <span class="slider-headline-left">${escHtml(f.label)}</span>
+            <span class="slider-headline-right" id="${f.id}_display">${v}<span class="sec">${escHtml(f.suffix || '%')}</span></span>
+          </div>
+          <div class="slider-track">
+            <div class="slider-fill" id="${f.id}_fill" style="width:${v}%"></div>
+            <input type="range" class="slider-input" id="${f.id}" min="0" max="100" step="5" value="${v}" data-kind="pct" data-suffix="${escHtml(f.suffix || '%')}">
+          </div>
+          <div class="slider-stops"><div class="slider-stop">${escHtml(f.leftStop || '0%')}</div><div class="slider-stop">${escHtml(f.rightStop || '100%')}</div></div>
+        </div>`, null);
+    }
+
+    case 'dual_slider': {
+      let v;
+      if (value !== undefined && value !== '') {
+        v = parseInt(String(value).replace(/[^0-9]/g, '')) || (f.defaultValue || 50);
+      } else {
+        v = f.defaultValue || 50;
+      }
+      return wrap(`
+        <div class="slider-wrap slider-dual-fill">
+          <div class="dual-labels">
+            <div class="dual-label">
+              <div class="dual-label-num" id="${f.id}_left">${v}%</div>
+              <div class="dual-label-name">${escHtml(f.leftLabel)}</div>
+            </div>
+            <div class="dual-label right">
+              <div class="dual-label-num" id="${f.id}_right">${100 - v}%</div>
+              <div class="dual-label-name">${escHtml(f.rightLabel)}</div>
+            </div>
+          </div>
+          <div class="slider-track">
+            <div class="slider-fill" id="${f.id}_fill" style="width:${v}%"></div>
+            <div class="slider-fill-right" id="${f.id}_fillR" style="width:${100 - v}%"></div>
+            <input type="range" class="slider-input" id="${f.id}" min="0" max="100" step="5" value="${v}" data-kind="dual">
+          </div>
+        </div>`, null);
+    }
+
+    case 'competitors': {
+      const placeholders = [
+        {n:'Chick-fil-A', p:'Throughput-disciplined wholesomeness'},
+        {n:'Popeyes', p:'Bold, flavor-forward, Cajun-coded'},
+        {n:'Raising Cane\'s', p:'Menu-focus monk, college-coded'}
+      ];
+      const blocks = [1, 2, 3].map(n => {
+        const ex = placeholders[n - 1];
+        const nm = FORM_DATA['c' + n + '_name'] || '';
+        const ps = FORM_DATA['c' + n + '_pos'] || '';
+        return `
+          <div class="comp-block">
+            <div class="comp-block-label">Competitor ${String(n).padStart(2, '0')}</div>
+            <div class="form-fields two">
+              <div class="ff-group"><label class="ff-label">Brand Name</label><input class="ff-input" id="c${n}_name" placeholder="e.g. ${escHtml(ex.n)}" value="${escHtml(nm)}"></div>
+              <div class="ff-group"><label class="ff-label">Their Positioning (1 line)</label><input class="ff-input" id="c${n}_pos" placeholder="${escHtml(ex.p)}" value="${escHtml(ps)}"></div>
+            </div>
+          </div>`;
+      }).join('');
+      return `<div style="grid-column:1/-1;"><label class="ff-label" style="margin-bottom:10px;display:block;">Top 3 Competitors</label>${blocks}</div>`;
+    }
+
+    default:
+      return '';
+  }
+}
+
+function wireInteractiveFields() {
+  document.querySelectorAll('.cuisine-grid').forEach(grid => {
+    const targetId = grid.dataset.target;
+    grid.querySelectorAll('.cuisine-card').forEach(card => {
+      card.addEventListener('click', () => {
+        grid.querySelectorAll('.cuisine-card').forEach(c => c.classList.remove('selected'));
+        card.classList.add('selected');
+        document.getElementById(targetId).value = card.dataset.cuisine;
+      });
+    });
+  });
+
+  document.querySelectorAll('.option-grid').forEach(grid => {
+    const targetId = grid.dataset.target;
+    const color = grid.dataset.color || '';
+    grid.querySelectorAll('.opt-card').forEach(card => {
+      card.addEventListener('click', () => {
+        grid.querySelectorAll('.opt-card').forEach(c => {
+          c.classList.remove('selected');
+          if (color) c.classList.remove(color);
+        });
+        card.classList.add('selected');
+        if (color) card.classList.add(color);
+        document.getElementById(targetId).value = card.dataset.opt;
+      });
+    });
+  });
+
+  document.querySelectorAll('.chip-grid').forEach(grid => {
+    const targetId = grid.dataset.target;
+    grid.querySelectorAll('.chip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        grid.querySelectorAll('.chip').forEach(c => c.classList.remove('selected'));
+        chip.classList.add('selected');
+        document.getElementById(targetId).value = chip.dataset.chip;
+      });
+    });
+  });
+
+  document.querySelectorAll('.slider-input').forEach(input => {
+    const id = input.id;
+    const kind = input.dataset.kind;
+    const fill = document.getElementById(id + '_fill');
+    const display = document.getElementById(id + '_display');
+
+    const update = () => {
+      const v = Number(input.value);
+      if (kind === 'stops') {
+        const stops = JSON.parse(input.dataset.stops.replace(/&#39;/g, "'").replace(/&quot;/g, '"'));
+        const pct = (v / (stops.length - 1)) * 100;
+        if (fill) fill.style.width = pct + '%';
+        if (display) display.textContent = stops[v];
+      } else if (kind === 'pct') {
+        if (fill) fill.style.width = v + '%';
+        if (display) display.innerHTML = v + '<span class="sec">' + (input.dataset.suffix || '%') + '</span>';
+      } else if (kind === 'dual') {
+        const fillR = document.getElementById(id + '_fillR');
+        const left = document.getElementById(id + '_left');
+        const right = document.getElementById(id + '_right');
+        if (fill) fill.style.width = v + '%';
+        if (fillR) fillR.style.width = (100 - v) + '%';
+        if (left) left.textContent = v + '%';
+        if (right) right.textContent = (100 - v) + '%';
+      }
+    };
+    input.addEventListener('input', update);
+  });
+}
+
+function saveCurrentStepData() {
+  const card = document.querySelector('#screen-form .form-card');
+  if (!card) return;
+  card.querySelectorAll('input, select, textarea').forEach(el => {
+    if (!el.id) return;
+    if (el.type === 'range') {
+      const kind = el.dataset.kind;
+      if (kind === 'stops') {
+        const stops = JSON.parse(el.dataset.stops.replace(/&#39;/g, "'").replace(/&quot;/g, '"'));
+        FORM_DATA[el.id] = stops[Number(el.value)];
+      } else if (kind === 'dual') {
+        // Save as raw percentage number for the prompt
+        FORM_DATA[el.id] = Number(el.value);
+      } else if (kind === 'pct') {
+        FORM_DATA[el.id] = Number(el.value);
+      } else {
+        FORM_DATA[el.id] = el.value;
+      }
+    } else {
+      FORM_DATA[el.id] = el.value;
+    }
+  });
+}
+
+function nextStep() {
+  saveCurrentStepData();
+  if (currentStep < FORM_STEPS.length - 1) {
+    currentStep++;
+    renderProgress();
+    renderStep();
+    window.scrollTo({top:0, behavior:'smooth'});
+  } else {
+    runRealAudit();
+  }
+}
+
+function prevStep() {
+  saveCurrentStepData();
+  if (currentStep > 0) {
+    currentStep--;
+    renderProgress();
+    renderStep();
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// AUDIT SUBMISSION + POLLING
+// ═══════════════════════════════════════════════════════════════════
+async function runRealAudit() {
+  goTo('loading');
+  document.getElementById('load-order').textContent = 'ORDER #' + ORDER_NUMBER;
+  animateLoadingSteps();
+
+  try {
+    // Generate jobId client-side — audit-start is a background function
+    // that returns 202 immediately, so we can't wait for a jobId in the response.
+    const jobId = 'job_' + Date.now() + '_' + Math.random().toString(36).slice(2, 10);
+
+    // Fire and don't await — background function processes async
+    fetch('/api/audit-start', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({ jobId, ...FORM_DATA })
+    }).catch(err => console.error('Audit start error:', err));
+
+    const maxAttempts = 150;
+    let attempts = 0;
+    while (attempts < maxAttempts) {
+      await new Promise(r => setTimeout(r, 2000));
+      attempts++;
+      const statusRes = await fetch('/api/audit-status?id=' + encodeURIComponent(jobId));
+      const status = await statusRes.json();
+      if (status.status === 'complete') {
+        CURRENT_AUDIT = status.audit;
+        renderAuditIntoResults(CURRENT_AUDIT, FORM_DATA);
+        goTo('results');
+        return;
+      }
+      if (status.status === 'error') {
+        goTo('form');
+        alert('Audit generation failed: ' + (status.error || 'Unknown error'));
+        return;
+      }
+    }
+    goTo('form');
+    alert('Audit is taking longer than expected. Please try again.');
+  } catch (err) {
+    goTo('form');
+    alert('Connection error: ' + err.message);
+  }
+}
+
+function animateLoadingSteps() {
+  const steps = document.querySelectorAll('#screen-loading .load-step');
+  if (!steps.length) return;
+  steps.forEach(s => s.classList.remove('done', 'active'));
+  let idx = 0;
+  steps[0].classList.add('active');
+  const interval = setInterval(() => {
+    if (!document.getElementById('screen-loading').classList.contains('active')) {
+      clearInterval(interval);
+      return;
+    }
+    if (idx < steps.length - 1) {
+      steps[idx].classList.remove('active');
+      steps[idx].classList.add('done');
+      idx++;
+      steps[idx].classList.add('active');
+    } else {
+      steps.forEach((s, i) => {
+        s.classList.remove('done', 'active');
+        if (i === 0) s.classList.add('active');
+      });
+      idx = 0;
+    }
+  }, 8000);
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// RESULTS RENDERING — receipt + cards
+// ═══════════════════════════════════════════════════════════════════
+function renderAuditIntoResults(audit, formData) {
+  if (!audit) return;
+  const f = formData || {};
+  const c = audit.competitive || {};
+
+  // ── RECEIPT ───────────────────────────────────────────
+  document.getElementById('r-order').textContent = ORDER_NUMBER;
+  const now = new Date();
+  const months = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
+  const dateStr = `${months[now.getMonth()]} ${now.getDate()} ${now.getFullYear()} · ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
+  document.getElementById('r-date').textContent = dateStr;
+
+  document.getElementById('r-brand').textContent = f.brand_name || 'Unknown Concept';
+  const metaBits = [f.cuisine, f.service_mode, f.price_tier].filter(Boolean).map(s => String(s).toUpperCase());
+  document.getElementById('r-meta').textContent = metaBits.join(' · ') || 'QSR CONCEPT';
+
+  const verdict = (audit.verdict && audit.verdict.signal) ? audit.verdict.signal : 'Audit Complete';
+  document.getElementById('r-verdict').textContent = String(verdict).toUpperCase();
+  const verdictHeadline = (audit.verdict && audit.verdict.headline) || '';
+  document.getElementById('r-verdict-line').innerHTML = escWithEmphasis(verdictHeadline);
+
+  const score = (typeof c.differentiation_score === 'number') ? c.differentiation_score : 0;
+  document.getElementById('r-score').textContent = score;
+  const filled = Math.round((score / 100) * 20);
+  document.getElementById('r-score-bar').textContent = '\u2588'.repeat(filled) + '\u2591'.repeat(20 - filled);
+
+  // Highest threat from competitors
+  const comps = c.competitors || [];
+  let threatLevel = 'MED';
+  if (comps.some(x => x && x.threat_level === 'high')) threatLevel = 'HIGH';
+  else if (comps.length && comps.every(x => x && x.threat_level === 'low')) threatLevel = 'LOW';
+  document.getElementById('r-threat').textContent = threatLevel;
+  document.getElementById('r-whitespace').textContent = score >= 60 ? 'OPEN' : (score >= 35 ? 'CONTESTED' : 'CLOSED');
+
+  // Barcode — pseudo-random bars deterministic on order number
+  const barcode = document.getElementById('r-barcode');
+  barcode.innerHTML = '';
+  let seed = parseInt(ORDER_NUMBER, 10) || 12345;
+  for (let i = 0; i < 50; i++) {
+    seed = (seed * 9301 + 49297) % 233280;
+    const w = 1 + (seed % 4);
+    const h = 18 + (seed % 18);
+    const bar = document.createElement('span');
+    bar.className = 'bar';
+    bar.style.width = w + 'px';
+    bar.style.height = h + 'px';
+    barcode.appendChild(bar);
+  }
+
+  // ── VERDICT SIDE CARD ─────────────────────────────────
+  document.getElementById('v-signal').textContent = verdict;
+  document.getElementById('v-headline').innerHTML = escWithEmphasis(verdictHeadline);
+
+  // ── CHAT CONTEXT ──────────────────────────────────────
+  const chatCtx = [f.brand_name, f.cuisine, f.daypart].filter(Boolean).join(' · ');
+  if (chatCtx) document.getElementById('chat-ctx').textContent = chatCtx;
+
+  // ── COMPETITIVE INTRO ─────────────────────────────────
+  const intro = c.intro_paragraphs || [];
+  document.getElementById('comp-intro').innerHTML = intro.map(p => `<p>${escWithEmphasis(p)}</p>`).join('') || '<p>No competitive intro available.</p>';
+
+  // ── DIFFERENTIATION CARD ──────────────────────────────
+  document.getElementById('diff-num').textContent = score;
+  document.getElementById('diff-bar').style.width = score + '%';
+  document.getElementById('diff-title').innerHTML = escWithEmphasis(c.differentiation_headline || '');
+  document.getElementById('diff-rat').textContent = c.differentiation_rationale || '';
+
+  // ── COMPETITOR CARDS ──────────────────────────────────
+  const compCards = document.querySelectorAll('.comp-card-r');
+  comps.slice(0, 3).forEach((comp, i) => {
+    const card = compCards[i];
+    if (!card || !comp) return;
+    const nameEl = card.querySelector('.comp-name-r');
+    if (nameEl) nameEl.textContent = comp.name || '';
+    const stamp = card.querySelector('.threat-stamp-r');
+    if (stamp) {
+      stamp.className = 'threat-stamp-r ' + (comp.threat_level || 'medium');
+      stamp.textContent = (comp.threat_level || 'medium').charAt(0).toUpperCase() + (comp.threat_level || 'medium').slice(1) + ' Threat';
+    }
+    const posEl = card.querySelector('.comp-pos-r');
+    if (posEl) posEl.textContent = comp.positioning || '';
+    const swDivs = card.querySelectorAll('.comp-sw-r > div');
+    if (swDivs[0]) {
+      const list = swDivs[0].querySelector('.sw-list-r');
+      if (list) list.innerHTML = (comp.strengths || []).map(s => `<li>${escHtml(s)}</li>`).join('');
+    }
+    if (swDivs[1]) {
+      const list = swDivs[1].querySelector('.sw-list-r');
+      if (list) list.innerHTML = (comp.weaknesses || []).map(s => `<li>${escHtml(s)}</li>`).join('');
+    }
+    const gap = card.querySelector('.gap-text-r');
+    if (gap) gap.textContent = comp.opportunity_gap || '';
+  });
+
+  // ── WHITE SPACE + MOAT ───────────────────────────────
+  document.getElementById('ws-headline').innerHTML = escWithEmphasis(c.white_space_headline || '<strong>White space</strong> identified.');
+  document.getElementById('ws-body').textContent = c.white_space || '';
+  document.getElementById('moat-headline').innerHTML = escWithEmphasis(c.competitive_moat_headline || '<strong>Competitive moat</strong> defined.');
+  document.getElementById('moat-body').textContent = c.competitive_moat || '';
+
+  // ── VULNERABILITIES / ADVANTAGES ─────────────────────
+  document.getElementById('va-vulns').innerHTML = (c.vulnerabilities || []).map(v => `<li>${escHtml(v)}</li>`).join('');
+  document.getElementById('va-advs').innerHTML = (c.advantages || []).map(v => `<li>${escHtml(v)}</li>`).join('');
+
+  // ── STRATEGIC PILLARS ─────────────────────────────────
+  const pillarKeys = ['real_estate', 'unit_economics', 'menu_strategy', 'marketing_brand', 'growth_model'];
+  const pillarLabels = ['Real Estate', 'Unit Economics', 'Menu Strategy', 'Marketing & Brand', 'Growth Model'];
+  const pillarCards = document.querySelectorAll('.pillar-r');
+  pillarKeys.forEach((key, i) => {
+    const card = pillarCards[i];
+    const data = audit[key] || {};
+    if (!card) return;
+    const cat = card.querySelector('.pillar-cat-r');
+    if (cat) cat.textContent = pillarLabels[i];
+    const badge = card.querySelector('.pillar-badge-r');
+    if (badge) {
+      const priority = data.priority || 'watch';
+      badge.className = 'pillar-badge-r ' + priority;
+      badge.textContent = priority.charAt(0).toUpperCase() + priority.slice(1);
+    }
+    const headline = card.querySelector('.pillar-headline-r');
+    if (headline) headline.innerHTML = escWithEmphasis(data.headline || '');
+    const insight = card.querySelector('.pillar-insight-r');
+    if (insight) insight.textContent = data.insights || '';
+    const actions = card.querySelector('.pillar-actions-r');
+    if (actions) actions.innerHTML = (data.actions || []).map(a => `<li>${escHtml(a)}</li>`).join('');
+  });
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// CHAT (scenario mode)
+// ═══════════════════════════════════════════════════════════════════
+function onChatKey(e) {
+  if (e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault();
+    sendChat();
+  }
+}
+
+async function sendChat() {
+  const input = document.getElementById('chat-input');
+  const msg = (input.value || '').trim();
+  if (!msg) return;
+
+  input.value = '';
+  document.getElementById('chat-send').disabled = true;
+
+  appendChatMsg('user', msg);
+  CHAT_HISTORY.push({role: 'user', content: msg});
+
+  const tid = 'typing-' + Date.now();
+  const body = document.getElementById('chat-body');
+  const typing = document.createElement('div');
+  typing.id = tid;
+  typing.className = 'chat-msg assistant';
+  typing.innerHTML = '<div class="msg-role">FoodScope</div><div class="msg-bubble">Thinking…</div>';
+  body.appendChild(typing);
+  body.scrollTop = body.scrollHeight;
+
+  try {
+    const res = await fetch('/api/chat', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        messages: CHAT_HISTORY,
+        audit: CURRENT_AUDIT,
+        formData: FORM_DATA
+      })
+    });
+    const data = await res.json();
+    const t = document.getElementById(tid);
+    if (t) t.remove();
+
+    if (!res.ok || data.error) {
+      appendChatMsg('assistant', 'Something went wrong. Please try again.');
+    } else {
+      const reply = data.reply || '';
+      CHAT_HISTORY.push({role: 'assistant', content: reply});
+      appendChatMsg('assistant', reply);
+    }
+  } catch (err) {
+    const t = document.getElementById(tid);
+    if (t) t.remove();
+    appendChatMsg('assistant', 'Connection error. Please try again.');
+  }
+  document.getElementById('chat-send').disabled = false;
+}
+
+function appendChatMsg(role, text) {
+  const body = document.getElementById('chat-body');
+  const div = document.createElement('div');
+  div.className = 'chat-msg ' + role;
+  const roleLabel = role === 'user' ? 'You' : 'FoodScope';
+  // Allow **bold** in assistant messages
+  let safe = escHtml(text);
+  safe = safe.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+  safe = safe.replace(/\n/g, '<br>');
+  div.innerHTML = '<div class="msg-role">' + roleLabel + '</div><div class="msg-bubble">' + safe + '</div>';
+  body.appendChild(div);
+  body.scrollTop = body.scrollHeight;
+}
+
+// Wire suggestion chips on first load
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.chat-sugg').forEach(chip => {
+    chip.addEventListener('click', () => {
+      const input = document.getElementById('chat-input');
+      if (input) {
+        input.value = chip.textContent.trim();
+        sendChat();
+      }
+    });
+  });
+});
+</script>
+</body>
+</html>
